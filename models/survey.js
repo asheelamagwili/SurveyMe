@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 
 const surveySchema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true
+    },
     description: String,
     isOpen: Boolean,
     startDate: Date,
