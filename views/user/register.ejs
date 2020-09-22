@@ -1,0 +1,14 @@
+<h2>Register</h2>
+
+<% // Search bar to search for surveys %> 
+<form action="/register" method="GET">
+    <label> Name </label>
+    <input type="text" name="name" value="<%= user.name %>">
+
+    <label> Email </label>
+    <input type="text" name="email" value="<%= user.email %>">
+
+    <label> Password </label>
+    <input type="text" name="email" value="<%= user.password %>">
+    <button type="submit"> Search </button>
+</form>

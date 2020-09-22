@@ -12,6 +12,7 @@ const bodyParser = require('body-parser')
 // Import routes
 const indexRouter = require('./routes/index')
 const surveysRouter = require('./routes/surveys')
+const userRouter = require('./routes/user')
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
@@ -29,6 +30,7 @@ db.once('open', error => console.log('Connected to Mongoose'))
 // Use routes/
 app.use('/', indexRouter)
 app.use('/surveys', surveysRouter)
+app.use('/user', userRouter)
 
 // For development default to port 3000
 app.listen(process.env.PORT || 3000)

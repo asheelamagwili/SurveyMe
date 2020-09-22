@@ -1,5 +1,4 @@
 const express = require('express')
-const survey = require('../models/survey')
 const router = express.Router()
 const Survey = require('../models/survey')
 
