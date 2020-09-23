@@ -1,2 +1,8 @@
 <h2>Profile Page</h2>
 Asheela Magwili
+
+<% // Displays each user email and name %> 
+<% users.forEach(user => { %>
+    <div> <%= user.name  %> </div>
+    <div> <%= user.email  %> </div>
+<% }) %>
