@@ -1,0 +1,16 @@
+<h2>Login</h2>
+
+<% // Register as new user %> 
+<form action="/auth" method="POST">
+    <% if(message != null) %>
+        <%= message %>  
+
+    <label> Email </label>
+    <input type="text" name="name">
+    <br>
+
+    <label> Password </label>
+    <input type="text" name="email">
+    <br>
+    <button type="submit"> Login </button>
+</form>
