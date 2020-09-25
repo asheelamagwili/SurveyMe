@@ -6,13 +6,13 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        minlength: 5,
+        //minlength: 5,
         maxlength: 20
     },
     email: {
         type: String,
         required: true,
-        minlength: 5,
+        //minlength: 5,
         maxlength: 255,
         unique: true // Depreciated
     },
@@ -26,9 +26,9 @@ const userSchema = new mongoose.Schema({
 })
 
 // Hash user password before saving to DB
-userSchema.pre('save', (next) => {
+/*userSchema.pre('save', (next) => {
     this.password = bcrypt.hashSync(this.password, saltRounds);
     next();
-})
+})*/
 
 module.exports = mongoose.model('User', userSchema)

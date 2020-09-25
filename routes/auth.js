@@ -1,4 +1,5 @@
 const express = require('express');
+const user = require('../models/user');
 const router = express.Router()
 const User = require('../models/user');
 
@@ -9,9 +10,17 @@ router.get('/register', (req, res) => {
 
 // Post register information to DB
 router.post('/', async (req, res) => {
+    console.log('Post Email:' + req.body.email)
+    console.log('Post Name: ' + req.body.name)
+    const name = req.body.name
+    const email = req.body.email
+    const password = req.body.password
     try {
-        User.create
-        res.redirect('user/profile')
+        console.log('in try{}')
+        const newUser = await new User({name, email, password})
+        newUser.save()
+        console.log('Redirecting...')
+        res.render('user/profile', {user:newUser})
     } catch {
         res.render('auth/register')
     }
@@ -22,20 +31,6 @@ router.get('/login', (req, res) => {
     console.log('Getting login page')
     const message = null
     res.render('auth/login', {message: message})
-})
-
-// Post user credentials and validate
-router.post('/', (req, res) => {
-    console.log('Validating user information against DB')
-    User.authenticate
-    const status = User.authenticate.status
-    console.log(status.message)
-
-    if(status == 'error') {
-        res.redirect('auth/login', {message: status.message})
-    } else {
-        res.redirect('surveys/index')
-    }
 })
 
 // Validate user registration
@@ -56,23 +51,6 @@ module.exports = {
                     data: null
                 });
         });
-    },
-
-    authenticate: function (req, res, next) {
-        User.findOne({email: req.body.email}),
-        function(err, userInfo) {
-            if (err)
-                next(err);
-            else {
-                if(bcrypt.compareSync(req.body.password, userInfo.password)) {
-                    const token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), { expiresIn: '1h' });
-
-                    res.json({status:"success", message: "User Found", data:{user: userInfo, token:token}});
-                } else{
-                    res.json({status:"error", message: "Invalid password/email", data:null});
-                }
-            }
-        }
     }
 }
 
