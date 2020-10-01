@@ -40,8 +40,8 @@ app.use(express.json());
 app.use('/', indexRouter)
 app.use('/surveys', surveysRouter)
 app.use('/user', userRouter)
-app.use('/auth/register.ejs', registerRouter)
-app.use('/auth/login.ejs', loginRouter)
+app.use('/register', registerRouter)
+app.use('/login', loginRouter)
 
 // For development default to port 3000
 app.listen(process.env.PORT || 3000)

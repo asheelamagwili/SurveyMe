@@ -1,16 +1,16 @@
 <h2>Login</h2>
 
 <% // Register as new user %> 
-<form action="/auth" method="POST">
+<form action="/login" method="POST">
     <% if(message != null) %>
         <%= message %>  
 
     <label> Email </label>
-    <input type="text" name="name">
+    <input type="text" name="email">
     <br>
 
     <label> Password </label>
-    <input type="text" name="email">
+    <input type="text" name="password">
     <br>
     <button type="submit"> Login </button>
 </form>
