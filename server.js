@@ -16,7 +16,7 @@ dotenv.config();
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
-//app.set('auth', __dirname + '/auth') add '/views/auth' instead??????
+//app.set('/views/auth', __dirname + '/auth')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(express.static('public'))
@@ -40,8 +40,8 @@ app.use(express.json());
 app.use('/', indexRouter)
 app.use('/surveys', surveysRouter)
 app.use('/user', userRouter)
-app.use('/auth/user_register', registerRouter)
-app.use('/auth/user_login', loginRouter)
+app.use('/auth/register.ejs', registerRouter)
+app.use('/auth/login.ejs', loginRouter)
 
 // For development default to port 3000
 app.listen(process.env.PORT || 3000)

@@ -8,11 +8,11 @@ const {loginValidation} = require('../validation');
 router.get('/login', (req, res) => {
     console.log('Getting login page')
     const message = null
-    res.render('auth/user_login/login', {message: message})
+    res.render('auth/login', {message: message})
 })
 
 // Post login information to DB
-router.post('/', async (req, res) => {
+router.post('/login', async (req, res) => {
     console.log('Posting login information')
     // Validate user data before creating user
     const {error} = loginValidation(req.body);
