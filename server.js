@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
@@ -22,6 +23,14 @@ app.use(expressLayouts)
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false}))
 
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
+
 // Connect to DB
 //mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true})
 mongoose.connect(
@@ -37,6 +46,7 @@ db.once('open', error => console.log('Connected to Mongoose'))
 app.use(express.json());
 
 // Route Middlewares - use routes
+app.use(cors);
 app.use('/', indexRouter)
 app.use('/surveys', surveysRouter)
 app.use('/user', userRouter)
