@@ -7,10 +7,10 @@ function postLogin(event){
         email: document.getElementById('email').value,
         password: document.getElementById('password').value
     };
-    console.log('After creating user')
+    console.log('After logging in user:', user.email)
 
     fetch('http://localhost:3000/login', {
-        method:'POST',
+        method: 'POST',
         headers: {
             'Accept': "application/json",
             'Content-Type': "application/json",
@@ -19,10 +19,13 @@ function postLogin(event){
         body: JSON.stringify({
             email: user.email,
             password: user.password
-        }) 
+        }),
     })
     .then(res => res.json())
     .then(()=> console.log('Fetch is working (:'))
+    .catch((error) => {
+        console.error("Error:", error);
+    })
 };
 
 const Login = () => {
@@ -35,7 +38,7 @@ const Login = () => {
             <input type="text" name="email" id="email"/>
 
             <label> Password </label>
-            <input type="text" name="password" id="password"/>
+            <input type="password" name="password" id="password"/>
             <button type="submit"> Login </button>
             </form>
         </div>

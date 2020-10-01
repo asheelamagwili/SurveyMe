@@ -5,20 +5,21 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {loginValidation} = require('../validation');
 require('dotenv').config();
-const { bool, boolean } = require('@hapi/joi');
 
 // Displays the login page
-router.get('/', (req, res) => {
+/*router.get('/', (req, res) => {
     console.log('Getting login page');
     const message = null;
-    res.render('auth/login', {message: message});
-})
+    //res.render('auth/login', {message: message});
+})*/
 
 // Post login information to DB
 router.post('/', async (req, res) => {
+    console.log('Posting login information')
+
     // Validate user data before creating user
     const {error} = loginValidation(req.body);
-
+    console.log('After loginValidation');
     if(error) {
         return res.status(400).send(error.details[0].message);
     }
@@ -27,7 +28,7 @@ router.post('/', async (req, res) => {
     const user = await User.findOne({email: req.body.email});
     if(!user)
         return res.status(400).send('Email doesn\'t exists');
-
+    console.log('User doesnt exist')
     // Check if password is correct
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if(!validPass)
@@ -39,11 +40,12 @@ router.post('/', async (req, res) => {
         process.env.TOKEN_SECRET,
         {expiresIn: "7d"}
     );
+    console.log('Finished authenticating user')
 
     //res.json({accessToken: token});
 
-    res.header('auth-token', token).redirect('user/profile');
-    res.redirect('user/profile');
+    //res.header('auth-token', token).redirect('user/profile');
+    //res.redirect('user/profile');
     //console.log(res.getHeaders());
     //return res.send(token);
     //res.setHeader('auth-token', token);

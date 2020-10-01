@@ -36,10 +36,10 @@ router.post('/', async (req, res) => {
 
     try {
         const newUser = await user.save();
-        res.render('user/profile', {user:newUser})
+        //res.render('user/profile', {user:newUser})
     } catch (err) {
-        res.status(400).send(err);
-        res.render('/register')
+        //res.status(400).send(err);
+        //res.render('/register')
     }
 })
 
