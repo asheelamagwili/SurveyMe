@@ -9,7 +9,7 @@ function postLogin(event){
     };
     console.log('After logging in user:', user.email)
 
-    fetch('http://localhost:3000/login', {
+    fetch('http://localhost:5000/login', {
         method: 'POST',
         headers: {
             'Accept': "application/json",

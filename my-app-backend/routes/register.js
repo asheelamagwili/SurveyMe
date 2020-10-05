@@ -5,10 +5,10 @@ const bcrypt = require('bcryptjs');
 const {registerValidation} = require('../validation');
 
 // Display register page
-router.get('/', (req, res) => {
+/*router.get('/', (req, res) => {
     console.log('Rendering auth/register')
     res.render('auth/register')
-})
+})*/
 
 // Post register information to DB
 router.post('/', async (req, res) => {
@@ -38,6 +38,7 @@ router.post('/', async (req, res) => {
         const newUser = await user.save();
         //res.render('user/profile', {user:newUser})
     } catch (err) {
+        res.send(err);
         //res.status(400).send(err);
         //res.render('/register')
     }

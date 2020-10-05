@@ -22,6 +22,7 @@ dotenv.config();
 //app.use(expressLayouts)
 //app.use(express.static('public'))
 //app.use(bodyParser.urlencoded({ limit: '10mb', extended: false}))
+app.use(cors());
 app.use(express.json());
 
 app.use(function (req, res, next) {
@@ -46,7 +47,6 @@ db.once('open', error => console.log('Connected to Mongoose'))
 // Middleware
 
 // Route Middlewares - use routes
-app.use(cors());
 app.use('/', indexRouter)
 app.use('/surveys', surveysRouter)
 app.use('/user', userRouter)
@@ -54,4 +54,4 @@ app.use('/register', registerRouter)
 app.use('/login', loginRouter)
 
 // For development default to port 3000
-app.listen(process.env.PORT || 3000)
+app.listen(process.env.PORT)
