@@ -4,7 +4,7 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {loginValidation} = require('../validation');
-require('dotenv').config();
+require('../models/node_modules/dotenv/types').config();
 
 // Displays the login page
 /*router.get('/', (req, res) => {

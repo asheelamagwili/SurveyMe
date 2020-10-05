@@ -7,7 +7,7 @@ const {registerValidation} = require('../validation');
 // Display register page
 router.get('/', (req, res) => {
     console.log('Rendering auth/register')
-    res.render('auth/register')
+    //res.render('auth/register')
 })
 
 // Post register information to DB

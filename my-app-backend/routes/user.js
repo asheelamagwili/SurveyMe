@@ -14,9 +14,9 @@ router.get('/profile', verify, (req, res) => {
     console.log(current_user);
     // If user is verified - render profile page
     if(current_user) {
-        res.render('user/profile', {
+        /*res.render('user/profile', {
             user:user
-        })
+        })*/
     }
     /*
     jwt.verify(req.token, process.env.TOKEN_SECRET, (err, authorized) => {
