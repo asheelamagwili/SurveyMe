@@ -40,6 +40,7 @@ mongoose.connect(
     {useNewUrlParser: true, useUnifiedTopology: true },
     () => console.log('Connected to DB')
 );
+
 const db = mongoose.connection
 db.on('error', error => console.error(error))
 db.once('open', error => console.log('Connected to Mongoose'))

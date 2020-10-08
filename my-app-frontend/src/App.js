@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import Register from './Auth/register';
 import Login from './Auth/login';
 import Home from './Home/home';
+import Profile from './Profile/profile';
+import Create from './Survey/new';
 import './App.css';
 
 import {
@@ -26,6 +28,12 @@ function App() {
               <Link to="/register">Register</Link>
             </li>
             <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+            <li>
+              <Link to="/create">Create</Link>
+            </li>
+            <li>
               <Link to="/">Home</Link>
             </li>
 
@@ -40,6 +48,12 @@ function App() {
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/create">
+            <Create />
           </Route>
           <Route path="/">
             <Home />

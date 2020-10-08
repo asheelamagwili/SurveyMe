@@ -7,16 +7,20 @@ services:
     expose:
       - ${APP_SERVER_PORT}
     environment:
+
+      # Environment should be a list
       API_HOST: ${API_HOST}
       API_SERVER_PORT: ${APP_SERVER_PORT}
     volumes:
-      - ./server/my-app-backend/server
+      - ./server/src:/my-app-backend/server
     command: npm run devStart
     tty: true
 
   # Setup react frontend container
   client:
     build: ./my-app-frontend
+    depends_on:
+      - server
     environment:
       REACT_APP_PORT: ${REACT_APP_PORT}
     expose:
