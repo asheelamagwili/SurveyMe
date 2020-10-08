@@ -1,33 +1,54 @@
 import React from 'react';
+import { Box, Grommet, Form, FormField, TextInput } from 'grommet';
+import { grommet } from 'grommet/themes';
+import LoginButton from '../Components/Button.stories';
 
 const Register = () => {
     return (
-        <div>
-            <h2>Register</h2>
-            <form onSubmit={postRegister}>
-                <label> Name </label>
-                <input type="text" name="name" id="name" onChange={(e)=>console.log(e.target.value)}/>
-
-                <label> Email </label>
-                <input type="text" name="email" id="email" onChange={(e)=>console.log(e.target.value)}/>
-
-                <label> Password </label>
-                <input type="password" name="password" id="password" onChange={(e)=>console.log(e.target.value)}/>
-
-                <button type="submit"> Register </button>
-            </form>
-        </div>
+        <RegisterForm/>
     )
 }
 
+const RegisterForm = () => {
+    const [value, setValue] = React.useState({
+        name: "",
+        email: "",
+        password: ""
+    });
+
+    return (
+        <Grommet theme={grommet}>
+            <Box fill align="center" justify="center">
+                <Box width="medium">
+                    <Form value={value} onChange={(nextValue) => setValue(nextValue)} onSubmit={() => postRegister(value)}>
+                        <FormField label="Name" name="name" required>
+                            <TextInput name="name" type="name" />
+                        </FormField>
+
+                        <FormField label="Email" name="email" required>
+                            <TextInput name="email" type="email" />
+                        </FormField>
+
+                        <FormField label="Password" name="password" required>
+                            <TextInput name="password" type="password" />
+                        </FormField>
+
+                        <LoginButton label="Register" type="submit"/>
+                    </Form>
+                </Box>
+            </Box>
+        </Grommet>
+    )
+};
+
 // Handle backend API call
-function postRegister(event){
+function postRegister(userInfo){
     console.log('Inside postRegister');
-    event.preventDefault();
+    //event.preventDefault();
     const user = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value
+        name: userInfo.name,
+        email: userInfo.email,
+        password: userInfo.password
     };
     console.log('After creating user:', user.email)
 

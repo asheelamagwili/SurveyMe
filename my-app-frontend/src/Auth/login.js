@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginButtons from '../Components/Button.stories';
-import loginForm from '../Components/loginForm.stories';
+import LoginForm from '../Components/loginForm.stories';
 
 // Handle backend API call
 function postLogin(event){
@@ -32,7 +32,10 @@ function postLogin(event){
 
 const Login = () => {
     return (
-        <loginForm />
+        <div>
+            <h3> Login </h3>
+            <LoginForm />
+        </div>
     )
 }
 

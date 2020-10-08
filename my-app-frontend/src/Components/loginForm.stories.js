@@ -1,34 +1,29 @@
 import React from 'react';
-import { Box, Button, Grommet, Form, FormField, TextInput } from 'grommet';
+import { Box, Grommet, Form, FormField, TextInput } from 'grommet';
 import { grommet } from 'grommet/themes';
+import LoginButton from '../Components/Button.stories';
 
-const loginForm = () => (
-    <Grommet theme={grommet}>
-      <Box fill align="center" justify="center">
-        <Box width="medium">
-          <Form
-            validate="blur"
-            onReset={event => console.log(event)}
+const LoginForm = () => (
+  <Grommet theme={grommet}>
+    <Box fill align="center" justify="center">
+      <Box width="medium">
 
-          >
-              <FormField label="Email" name="email" required>
-                  <TextInput name="email" type="email" />
-              </FormField>
+        <Form>
+          <FormField label="Email" name="email" required>
+            <TextInput name="email" type="email" />
+          </FormField>
+        </Form>
 
-              <FormField label="Password" name="password" required>
-                  <TextInput name="password" type="password" />
-              </FormField>
-  
-              <Box direction="row" justify="between" margin={{ top: 'medium' }}>
-                  <Button label="Cancel" />
-                  <Button type="reset" label="Reset" />
-                  <Button type="submit" label="Update" primary />
-              </Box>
+        <Form>
+          <FormField label="Password" name="password" required>
+            <TextInput name="password" type="password" />
+          </FormField>
 
-          </Form>
-        </Box>
+        <LoginButton label="Login"/>
+        </Form>
       </Box>
-    </Grommet>
+    </Box>
+  </Grommet>
 );
 
-export default loginForm;
+export default LoginForm;
