@@ -1,4 +1,6 @@
 import React from 'react';
+import LoginButtons from '../Components/Button.stories';
+import loginForm from '../Components/loginForm.stories';
 
 // Handle backend API call
 function postLogin(event){
@@ -30,18 +32,7 @@ function postLogin(event){
 
 const Login = () => {
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={postLogin}>
-
-            <label> Email </label>
-            <input type="text" name="email" id="email"/>
-
-            <label> Password </label>
-            <input type="password" name="password" id="password"/>
-            <button type="submit"> Login </button>
-            </form>
-        </div>
+        <loginForm />
     )
 }
 

@@ -32,7 +32,7 @@ function postRegister(event){
     console.log('After creating user:', user.email)
 
     // Check if users are null
-    if(typeof user != 'undefined' && user != null) {
+    if(typeof user !== 'undefined' && user !== null) {
 
         fetch('http://localhost:5000/register', {
             method: 'POST',
