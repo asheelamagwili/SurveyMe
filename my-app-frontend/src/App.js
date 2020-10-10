@@ -1,10 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import Register from './Auth/register';
 import Login from './Auth/login';
 import Home from './Home/home';
 import Profile from './Profile/profile';
 import Create from './Survey/new';
+import SurveyDashboard from './Survey/survey_dashboard'
+import Questions from './Survey/survey_questions';
 import './App.css';
 
 import {
@@ -31,33 +32,30 @@ function App() {
               <Link to="/profile">Profile</Link>
             </li>
             <li>
-              <Link to="/create">Create</Link>
+              <Link to="/surveys">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/surveys/create">Create</Link>
+            </li>
+            <li>
+              <Link to="/surveys/create/questions">Questions</Link>
             </li>
             <li>
               <Link to="/">Home</Link>
             </li>
-
           </ul>
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/create">
-            <Create />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/surveys/create/questions" component={Questions} />
+          <Route exact path="/surveys/create" component={Create} />
+          <Route path="/surveys" component={SurveyDashboard} />
+          <Route exact path="/" component={Home} />
         </Switch>
       </div>
     </Router>

@@ -2,7 +2,7 @@ import React from 'react';
 //import { storiesOf } from '@storybook/react';
 import { grommet, Box, Button, Grommet } from 'grommet';
 
-const loginButtons = props => (
+const formSubmitButton = props => (
   <Grommet theme={grommet}>
     <Box align="center" pad="medium">
       <Button onClick={() => {}} {...props} />
@@ -10,5 +10,5 @@ const loginButtons = props => (
   </Grommet>
 );
 
-export default loginButtons;
+export default formSubmitButton;
 //storiesOf('Button', module).add('Login', () => <loginButtons />);
