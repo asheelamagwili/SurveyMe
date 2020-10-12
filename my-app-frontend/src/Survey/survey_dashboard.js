@@ -13,7 +13,7 @@ import {
     TextInput,
     Button,
     Form
-  } from 'grommet';
+} from 'grommet';
 
 const surveyDashboard = () => {
     return (
@@ -27,7 +27,8 @@ const getSurveys = () => {
     console.log('Inside getSurveys');
 
     fetch('http://localhost:5000/surveys')
-    .then(response => console.log('Response: ' + response.body))
+    .then(res => res.json())
+    .then(res => console.log('Response: ' + res[9].title)) //Gets the correct survey returns
     .then(() => console.log('After fetch'))
 }
 

@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
     try {
         // Gets all the results of the search
         //const surveys = await Survey.find(searchOptions)
-        const surveys = await Survey.find()
+        const surveys = await Survey.find({})
         res.json(surveys);
         console.log('After attempting to find survey')
         /*res.render('surveys/index', {

@@ -1,9 +1,8 @@
-import React from 'react';
-import { Box, Grommet, Form, FormField, TextInput } from 'grommet';
+import { Box, Button, Grommet, Form, FormField, TextInput } from 'grommet';
+import { postRegister } from '../redux-items/actions/register-actions';
 import { grommet } from 'grommet/themes';
-import LoginButton from '../Components/Button.stories';
 import { connect } from 'react-redux';
-import { postRegister } from '../redux-items/actions/action-index';
+import React from 'react';
 
 function mapStateToProps(state) {
     return {
@@ -35,7 +34,7 @@ const Register = ({...props}) => {
                             <TextInput name="password" type="password" />
                         </FormField>
 
-                        <LoginButton label="Register" type="submit"/>
+                        <Button label="Register" type="submit"/>
                     </Form>
                 </Box>
             </Box>

@@ -1,17 +1,16 @@
-import React from 'react';
-import { Box, Grommet, Form, FormField, TextInput } from 'grommet';
+import { Box, Button, Grommet, Form, FormField, TextInput } from 'grommet';
+import { postLogin } from '../redux-items/actions/login-actions';
 import { grommet } from 'grommet/themes';
-import LoginButton from '../Components/Button.stories';
+import { connect } from 'react-redux';
+import React from 'react';
 
-const Login = () => {
-    return (
-        <div>
-            <LoginForm />
-        </div>
-    )
+function mapStateToProps(state) {
+    return {
+      loginSuccess: state.loginSuccess,
+    };
 }
 
-const LoginForm = () => {
+const Login = ({...props}) => {
     const [value, setValue] = React.useState({
         email: "",
         password: ""
@@ -21,7 +20,7 @@ const LoginForm = () => {
         <Grommet theme={grommet}>
             <Box fill align="center" justify="center">
                 <Box width="medium">
-                    <Form value={value} onChange={(nextValue) => setValue(nextValue)} onSubmit={() => postLogin(value)}>
+                    <Form value={value} onChange={(nextValue) => setValue(nextValue)} onSubmit={() => props.postLogin(value)}>
 
                         <FormField label="Email" name="email" required>
                             <TextInput name="email" type="email" />
@@ -31,7 +30,7 @@ const LoginForm = () => {
                             <TextInput name="password" type="password" />
                         </FormField>
 
-                        <LoginButton label="Login" type="submit"/>
+                        <Button label="Login" type="submit"/>
                     </Form>
                 </Box>
             </Box>
@@ -39,6 +38,7 @@ const LoginForm = () => {
     )
 };
 
+/*
 // Handle backend API call
 function postLogin(userInfo){
     //event.preventDefault();
@@ -67,5 +67,6 @@ function postLogin(userInfo){
         console.error("Error:", error);
     })
 };
+*/
 
-export default Login;
+export default connect(mapStateToProps, { postLogin })(Login);
