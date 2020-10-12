@@ -2,14 +2,16 @@ import React from 'react';
 import { Box, Grommet, Form, FormField, TextInput } from 'grommet';
 import { grommet } from 'grommet/themes';
 import LoginButton from '../Components/Button.stories';
+import { connect } from 'react-redux';
+import { postRegister } from '../redux-items/actions/action-index';
 
-const Register = () => {
-    return (
-        <RegisterForm/>
-    )
+function mapStateToProps(state) {
+    return {
+      registerSuccess: state.registerSuccess,
+    };
 }
 
-const RegisterForm = () => {
+const Register = ({...props}) => {
     const [value, setValue] = React.useState({
         name: "",
         email: "",
@@ -20,7 +22,7 @@ const RegisterForm = () => {
         <Grommet theme={grommet}>
             <Box fill align="center" justify="center">
                 <Box width="medium">
-                    <Form value={value} onChange={(nextValue) => setValue(nextValue)} onSubmit={() => postRegister(value)}>
+                    <Form value={value} onChange={(nextValue) => setValue(nextValue)} onSubmit={() => props.postRegister(value)}>
                         <FormField label="Name" name="name" required>
                             <TextInput name="name" type="name" />
                         </FormField>
@@ -41,6 +43,7 @@ const RegisterForm = () => {
     )
 };
 
+/*
 // Handle backend API call
 function postRegister(userInfo){
     console.log('Inside postRegister');
@@ -78,5 +81,6 @@ function postRegister(userInfo){
         console.log('User was null or undefined');
     }
 };
+*/
 
-export default Register;
+export default connect(mapStateToProps, { postRegister })(Register);

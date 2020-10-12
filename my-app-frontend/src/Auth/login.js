@@ -1,12 +1,50 @@
 import React from 'react';
-import LoginForm from '../Components/loginForm.stories';
+import { Box, Grommet, Form, FormField, TextInput } from 'grommet';
+import { grommet } from 'grommet/themes';
+import LoginButton from '../Components/Button.stories';
+
+const Login = () => {
+    return (
+        <div>
+            <LoginForm />
+        </div>
+    )
+}
+
+const LoginForm = () => {
+    const [value, setValue] = React.useState({
+        email: "",
+        password: ""
+    });
+
+    return (
+        <Grommet theme={grommet}>
+            <Box fill align="center" justify="center">
+                <Box width="medium">
+                    <Form value={value} onChange={(nextValue) => setValue(nextValue)} onSubmit={() => postLogin(value)}>
+
+                        <FormField label="Email" name="email" required>
+                            <TextInput name="email" type="email" />
+                        </FormField>
+
+                        <FormField label="Password" name="password" required>
+                            <TextInput name="password" type="password" />
+                        </FormField>
+
+                        <LoginButton label="Login" type="submit"/>
+                    </Form>
+                </Box>
+            </Box>
+        </Grommet>
+    )
+};
 
 // Handle backend API call
-function postLogin(event){
-    event.preventDefault();
+function postLogin(userInfo){
+    //event.preventDefault();
     const user = {
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value
+        email: userInfo.email,
+        password: userInfo.password
     };
     console.log('After logging in user:', user.email)
 
@@ -23,18 +61,11 @@ function postLogin(event){
         }),
     })
     .then(res => res.json())
+    .then((res) => console.log(res))
     .then(()=> console.log('Fetch is working (:'))
     .catch((error) => {
         console.error("Error:", error);
     })
 };
-
-const Login = () => {
-    return (
-        <div>
-            <LoginForm />
-        </div>
-    )
-}
 
 export default Login;
