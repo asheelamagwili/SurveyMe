@@ -1,70 +1,63 @@
 import React from 'react';
-import { Bluetooth as Memory, Storage, Trigger } from 'grommet-icons';
+import { getSurveys } from '../redux-items/actions/dashboard-actions';
+import { connect } from 'react-redux';
 import {
     Box,
-    Card,
-    CardBody,
-    CardFooter,
-    Chart,
-    Grid,
-    Grommet,
     Text,
-    FormField,
-    TextInput,
     Button,
+    Chart,
     Form
 } from 'grommet';
 
-const surveyDashboard = () => {
-    return (
-        <div>
-            <DisplayDashboard />
-        </div>
-    );
-};
+let data = [];
 
-const getSurveys = () => {
+function mapStateToProps(state) {
+  return {
+    displaySurveysSuccess: state.displaySurveysSuccess,
+  };
+}
+/*
+const getSurveys = (data) => {
     console.log('Inside getSurveys');
 
     fetch('http://localhost:5000/surveys')
     .then(res => res.json())
-    .then(res => console.log('Response: ' + res[9].title)) //Gets the correct survey returns
+    //.then(res => console.log('Response: ' + res[2].title))
+    .then(res => {
+      console.log('Title: ' + res[5].title)
+      for (let element in res) {
+        console.log('Survey title: ' + res[element].title)
+        data.push(res[element]);
+      }
+
+    })
     .then(() => console.log('After fetch'))
+    .then(res => {
+      for(let i in data) {
+        console.log('Survey ' + i + ' - ' + data[i].title);
+      }
+    })
 }
+*/
 
 // Frontend components to display data
-const DisplayDashboard = () => {
-    return (
-        <Grommet theme={theme} full>
-            <Box pad="large" background="dark-1" height="100%">
-                <Form onSubmit={getSurveys}>
-                    <FormField label="Search" name="search" required>
-                        <TextInput name="search" type="search" />
-                    </FormField>
-                    <Button type="submit" label="Search"/>
-                </Form>
-                    
-                <Grid gap="medium" columns={{ count: 'fit', size: 'small' }}>
-                    {data.map(value => (
-                        <Card key={value.title} onClick={() => {alert('Card was Clicked!');}}>
-                            <CardBody pad="small">
-                                <Identifier title={value.title} subTitle={value.subTitle} size="small">
-                                    {value.icon}
-                                </Identifier>
-                                <ChartPreview type={value.type} />
-                            </CardBody>
+const surveyDashboard = ({...props}) => {
+    //data.push('hello!')
 
-                            <CardFooter pad={{ horizontal: 'medium', vertical: 'small' }}>
-                                <Text size="xsmall">{value.message}</Text>
-                            </CardFooter>
-                        </Card>
-                    ))}
-                </Grid>
-            </Box>
-        </Grommet>
+    data = props.getSurveys();
+    //console.log('first thing in array: ' + data[0]);
+    /*for(let i in res) {
+      console.log('Survey ' + i + ' - ' + res[i].title);
+    }*/
+
+    return (
+      <Form>
+        <Button type="submit"></Button>
+      </Form>
     )
 };
 
+/*
 const data = [
     {
       icon: <Memory size="large" />,
@@ -88,6 +81,7 @@ const data = [
       type: 'point',
     },
 ];
+*/
 
 const Identifier = ({ children, title, subTitle, size, ...rest }) => (
     <Box gap="small" align="center" direction="row" pad="small" {...rest}>
@@ -156,4 +150,4 @@ const ChartPreview = ({ type }) => (
     </Box>
 );
 
-export default surveyDashboard;
+export default connect(mapStateToProps, { getSurveys })(surveyDashboard);

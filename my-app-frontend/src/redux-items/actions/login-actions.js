@@ -2,12 +2,11 @@ import {LOGIN_SUCCESS, LOGIN_ERROR} from '../constants/types';
 
 // Handle backend API call for login
 export function postLogin(userInfo){
-    //event.preventDefault();
     const user = {
         email: userInfo.email,
         password: userInfo.password
     };
-    console.log('After logging in user:', user.email)
+    console.log('Logging in user:', user.email)
 
     return function (dispatch) {
         fetch('http://localhost:5000/login', {

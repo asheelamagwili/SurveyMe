@@ -2,11 +2,15 @@ import { REGISTER_SUCCESS } from '../constants/types';
 import { REGISTER_ERROR } from '../constants/types';
 import { LOGIN_SUCCESS } from '../constants/types';
 import { LOGIN_ERROR } from '../constants/types';
+import { DISPLAY_SURVEYS_SUCCESS } from '../constants/types';
+import { DISPLAY_SURVEYS_ERROR } from '../constants/types';
 
 
 const initialState = {
     displayQuestionSuccess : false,
     displayQuestionError : false,
+    displaySurveysSuccess : false,
+    displaySurveysError : false,
     registerSuccess : false,
     registerError : false,
     loginSuccess : false,
@@ -49,6 +53,22 @@ function rootReducer(state = initialState, action) {
     }
 
     // Survey
+    if(action.type === DISPLAY_SURVEYS_SUCCESS){
+        return {
+            ...state, 
+            displaySurveysSuccess : true,
+            displaySurveysError : false,
+            data: action.payload
+        }
+    }
+
+    if(action.type === DISPLAY_SURVEYS_ERROR){
+        return {
+            ...state, 
+            displaySurveysSuccess : false,
+            displaySurveysError : true,
+        }
+    }
 
     return state;
 };

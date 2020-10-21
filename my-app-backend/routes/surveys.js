@@ -12,13 +12,15 @@ router.get('/', async (req, res) => {
         // Set as a regex
         // i - case insensitive flag
         searchOptions.name = new RegExp(req.query.name, 'i')
+        //searchOptions.name = 'Survey';
     }
 
     try {
         // Gets all the results of the search
         //const surveys = await Survey.find(searchOptions)
         const surveys = await Survey.find({})
-        res.json(surveys);
+        console.log('First survey from GET call: ' + surveys[0].title);
+        res.json({surveys});
         console.log('After attempting to find survey')
         /*res.render('surveys/index', {
             surveys: surveys,
