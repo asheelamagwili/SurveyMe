@@ -9,13 +9,15 @@ import {
     Form
 } from 'grommet';
 
-let data = [];
+//let surveys = [];
 
 function mapStateToProps(state) {
   return {
-    displaySurveysSuccess: state.displaySurveysSuccess,
+    surveyData: state.surveyData,
+    displaySurveysSuccess: state.displaySurveysSuccess
   };
-}
+};
+
 /*
 const getSurveys = (data) => {
     console.log('Inside getSurveys');
@@ -40,21 +42,57 @@ const getSurveys = (data) => {
 }
 */
 
+let surveys;
 // Frontend components to display data
-const surveyDashboard = ({...props}) => {
-    //data.push('hello!')
+//const SurveyDashboard = ({...props}) => {
 
-    data = props.getSurveys();
-    //console.log('first thing in array: ' + data[0]);
+  //const [surveys, setSurveys] = React.useState([]);
+
+  /*React.useEffect(async () => {
+      console.log('-----> useEffect: front end')
+    //this.props.getSurveys();
+    setSurveys(props.getSurveys());
+    await props.getSurveys()
+    surveys.push({title:'Sample Survey'});
+    console.log('First survey title: ' + surveys[0].title);
+    console.log('Actual survey title: ' + props.surveyData);
+    console.log('Survey Success test: ' + props.displaySurveysSuccess);
+
+    if(props.displaySurveysSuccess === true) {
+      console.log('Objects received!')
+    }
+  }, []);*/
+
+  /*return (
+    //const surveys = this.props.surveyData//.map(survey => {
+      <Button value="hello" />
+    //})
+  )*/
+
+class SurveyDashboard extends React.Component {
+
+    componentDidMount() {
+      console.log('-----> componentDidMount: front end')
+      //console.log(this.props.getSurveys()); // Shows that promise is fulfilled and objects are being sent
+      this.props.getSurveys();
+      //this.setState({displaySurveysSuccess: true});
+      console.log( this.props.surveyData ); // Returns undefined & cant access the objects by this.props.surveyData
+      console.log()
+    }
+
+    //props.getSurveys();
     /*for(let i in res) {
       console.log('Survey ' + i + ' - ' + res[i].title);
     }*/
 
-    return (
-      <Form>
-        <Button type="submit"></Button>
-      </Form>
-    )
+    render () {
+
+      //{this.props.surveyData.map(survey => 
+      //  <Button value={survey.title} />
+      //)}
+      console.log('Render lifecycle');
+      return 'hello';
+    }
 };
 
 /*
@@ -150,4 +188,4 @@ const ChartPreview = ({ type }) => (
     </Box>
 );
 
-export default connect(mapStateToProps, { getSurveys })(surveyDashboard);
+export default connect(mapStateToProps, { getSurveys })(SurveyDashboard);

@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
         //const surveys = await Survey.find(searchOptions)
         const surveys = await Survey.find({})
         console.log('First survey from GET call: ' + surveys[0].title);
-        res.json({surveys});
+        res.json(surveys);
         console.log('After attempting to find survey')
         /*res.render('surveys/index', {
             surveys: surveys,

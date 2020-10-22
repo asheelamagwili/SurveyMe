@@ -54,11 +54,12 @@ function rootReducer(state = initialState, action) {
 
     // Survey
     if(action.type === DISPLAY_SURVEYS_SUCCESS){
+        //console.log(action.payload);
         return {
             ...state, 
             displaySurveysSuccess : true,
             displaySurveysError : false,
-            data: action.payload
+            surveyData: action.payload
         }
     }
 
@@ -67,6 +68,7 @@ function rootReducer(state = initialState, action) {
             ...state, 
             displaySurveysSuccess : false,
             displaySurveysError : true,
+            surveyData: action.payload
         }
     }
 
