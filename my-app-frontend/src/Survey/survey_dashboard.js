@@ -71,6 +71,11 @@ let surveys;
 
 class SurveyDashboard extends React.Component {
 
+    constructor(props) {
+      super(props);
+      //this.state = {surveyData: this.props.surveyData}
+    }
+
     componentDidMount() {
       console.log('-----> componentDidMount: front end')
       //console.log(this.props.getSurveys()); // Shows that promise is fulfilled and objects are being sent
@@ -81,17 +86,34 @@ class SurveyDashboard extends React.Component {
     }
 
     //props.getSurveys();
-    /*for(let i in res) {
+    /*for(let i in this.props.surveyData) {
       console.log('Survey ' + i + ' - ' + res[i].title);
     }*/
 
     render () {
+      let component;
+      let surveys = [];
 
-      //{this.props.surveyData.map(survey => 
-      //  <Button value={survey.title} />
-      //)}
+      const surveysProp = this.props.surveyData;
+      for(let i in surveysProp) {
+        surveys.push(surveysProp[i]);
+        console.log('Survey ' + i + ' - ' + surveys[i].title);
+      }
+
+      if(this.props.surveyData === null || this.props.surveyData === undefined) {
+        component = 'Data is null :(';
+      }
+      else {
+        component = surveys.map((survey) =>
+          <Button label={survey.title} />
+        );
+      }
+
+      /*this.props.surveyData.map((survey) => {
+        <Button value={survey.title} />
+      })*/
       console.log('Render lifecycle');
-      return 'hello';
+      return component;
     }
 };
 
