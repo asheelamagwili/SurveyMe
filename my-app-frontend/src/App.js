@@ -6,6 +6,7 @@ import Profile from './Profile/profile';
 import Create from './Survey/new';
 import SurveyDashboard from './Survey/survey_dashboard'
 import Questions from './Survey/survey_questions';
+import Navigation from './Navigation/navigation';
 import './App.css';
 
 import {
@@ -20,6 +21,7 @@ function App() {
   return (
     <Router>
       <div>
+        <Navigation></Navigation>
         <nav>
           <ul>
             <li>

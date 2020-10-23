@@ -1,4 +1,4 @@
-import { Box, Button, Grommet, Form, FormField, TextInput } from 'grommet';
+import { Box, Button, Grommet, Heading, Form, FormField, TextInput, Grid, Text, List } from 'grommet';
 import { postRegister } from '../redux-items/actions/register-actions';
 import { grommet } from 'grommet/themes';
 import { connect } from 'react-redux';
@@ -18,8 +18,11 @@ const Register = ({...props}) => {
     });
 
     return (
-        <Grommet theme={grommet}>
+        <Grommet theme={theme}>
             <Box fill align="center" justify="center">
+                <Heading level={2} size="large">
+                    Register
+                </Heading>
                 <Box width="medium">
                     <Form value={value} onChange={(nextValue) => setValue(nextValue)} onSubmit={() => props.postRegister(value)}>
                         <FormField label="Name" name="name" required>
@@ -34,7 +37,11 @@ const Register = ({...props}) => {
                             <TextInput name="password" type="password" />
                         </FormField>
 
-                        <Button label="Register" type="submit"/>
+                        <Grid columns={{count: 'fit', size: 'small'}} gap="medium">
+                            <Button label="Sign Up" type="submit"/>
+                            <Text textAlign="center">Already have an account?</Text>
+                            <Button label="Login" type="submit"/>
+                        </Grid>
                     </Form>
                 </Box>
             </Box>
@@ -42,44 +49,17 @@ const Register = ({...props}) => {
     )
 };
 
-/*
-// Handle backend API call
-function postRegister(userInfo){
-    console.log('Inside postRegister');
-    //event.preventDefault();
-    const user = {
-        name: userInfo.name,
-        email: userInfo.email,
-        password: userInfo.password
-    };
-    console.log('After creating user:', user.email)
 
-    // Check if users are null
-    if(typeof user !== 'undefined' && user !== null) {
-
-        fetch('http://localhost:5000/register', {
-            method: 'POST',
-            headers: {
-                'Accept': "application/json",
-                'Content-Type': "application/json",
-                'Access-Control-Allow-Origin': "*"
-            },
-            body: JSON.stringify({
-                name: user.name,
-                email: user.email,
-                password: user.password
-            }),
-        })
-        .then(res => res.json())
-        .then(()=> console.log('Fetch is working (:'))
-        .catch((error) => {
-            console.error("Error:", error);
-        })
-    }
-    else {
-        console.log('User was null or undefined');
+const theme = {
+    themeMode: 'light',
+    global: {
+      font: {
+        family: 'Lora'
+      },
+    },
+    heading: {
+      extend: `color: #233C33`
     }
 };
-*/
 
 export default connect(mapStateToProps, { postRegister })(Register);

@@ -6,7 +6,13 @@ import {
     Text,
     Button,
     Chart,
-    Form
+    Form,
+    Grommet,
+    Grid,
+    Card,
+    CardBody,
+    CardFooter,
+    Heading
 } from 'grommet';
 
 //let surveys = [];
@@ -104,9 +110,7 @@ class SurveyDashboard extends React.Component {
         component = 'Data is null :(';
       }
       else {
-        component = surveys.map((survey) =>
-          <Button label={survey.title} />
-        );
+        component = surveyCard(this.props.surveyData)
       }
 
       /*this.props.surveyData.map((survey) => {
@@ -117,34 +121,42 @@ class SurveyDashboard extends React.Component {
     }
 };
 
-/*
-const data = [
-    {
-      icon: <Memory size="large" />,
-      title: 'Memory (EEC)',
-      subTitle: '8 GB @ 400Hz',
-      message: 'Past 24hrs',
-      type: 'bar',
-    },
-    {
-      icon: <Storage size="large" />,
-      title: 'Storage',
-      subTitle: 'Sub-system and Devices',
-      message: '36.8 TB available',
-      type: 'line',
-    },
-    {
-      icon: <Trigger size="large" />,
-      title: 'Power (Watts)',
-      subTitle: '720 Watt Service',
-      message: 'Past 12hrs',
-      type: 'point',
-    },
-];
-*/
+const surveyCard = (surveys) => (
+  <Grommet theme={theme} full>
+    <Box alignSelf="center" pad="medium">
+      <Heading level={2} size="large">
+        Surveys
+      </Heading>
+
+      <Grid gap="medium" rows="small" columns={{count: 'fit', size: 'small'}}>
+          {surveys.map((survey) =>
+            <Card
+              key={survey.title}
+              onClick={() => {
+                alert('Card was Clicked!');
+              }}
+            >
+                <CardBody pad="small">
+                  <Identifier
+                    pad="small"
+                    title={survey.title}
+                    subTitle={survey.description}
+                    size="small"
+                    align="start"
+                  />
+                </CardBody>
+
+                <CardFooter pad={{horizontal: 'medium', vertical: 'small'}}/>
+            </Card>
+          )}
+      </Grid>
+    </Box>
+  </Grommet>
+)
+
 
 const Identifier = ({ children, title, subTitle, size, ...rest }) => (
-    <Box gap="small" align="center" direction="row" pad="small" {...rest}>
+    <Box gap="small" align="center" direction="row" pad="medium" {...rest}>
       {children}
       <Box>
         <Text size={size} weight="bold">
@@ -155,59 +167,26 @@ const Identifier = ({ children, title, subTitle, size, ...rest }) => (
     </Box>
 );
 
-const gradient = [
-    { value: 28, color: 'status-ok' },
-    { value: 50, color: 'status-warning' },
-    { value: 80, color: 'status-critical' },
-  ];
-
 const theme = {
-    themeMode: 'dark',
+    themeMode: 'light',
     global: {
       font: {
-        family: `-apple-system,
-             BlinkMacSystemFont, 
-             "Segoe UI"`,
+        family: 'Lora'
       },
     },
     card: {
       container: {
-        background: '#FFFFFF12',
+        background: '#DADFF7',
         elevation: 'none',
       },
       footer: {
         pad: { horizontal: 'medium', vertical: 'small' },
-        background: '#FFFFFF06',
+        background: '#B5B2C2',
       },
     },
+    heading: {
+      extend: `color: #233C33`
+    }
 };
-
-const ChartPreview = ({ type }) => (
-    <Box>
-      <Chart
-        type={type}
-        id={type}
-        dash={type === 'line'}
-        round
-        thickness="xsmall"
-        bounds={[
-          [0, 6],
-          [0, 100],
-        ]}
-        values={[
-          { value: [6, 100], label: 'one hundred' },
-          { value: [5, 70], label: 'seventy' },
-          { value: [4, 40], label: 'sixty' },
-          { value: [3, 80], label: 'eighty' },
-          { value: [2, 25], label: 'forty' },
-          { value: [1, 50], label: 'thirty' },
-          { value: [0, 25], label: 'sixty' },
-        ]}
-        aria-label="chart card"
-        color={gradient}
-        size={{ height: 'xsmall' }}
-      />
-    </Box>
-);
 
 export default connect(mapStateToProps, { getSurveys })(SurveyDashboard);

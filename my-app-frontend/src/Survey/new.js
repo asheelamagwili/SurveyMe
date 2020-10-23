@@ -1,6 +1,15 @@
 import React from 'react';
-import { Box, Button, TextInput, DateInput, Form, FormField, Grommet } from 'grommet';
 import { grommet } from 'grommet/themes';
+import { 
+    Box, 
+    Button, 
+    TextInput, 
+    DateInput, 
+    Form, 
+    FormField, 
+    Grommet,
+    Heading
+} from 'grommet';
 
 const Create = () => {
     return (
@@ -22,8 +31,12 @@ const CreateForm = () => {
     }
 
     return (
-        <Grommet theme={grommet}>
+        <Grommet theme={theme}>
             <Box fill align="center" justify="center">
+                <Heading level={2} size="large">
+                    Create a Survey
+                </Heading>
+
                 <Box width="medium">
                     <Form value={value} onChange={(nextValue) => setValue(nextValue)} onSubmit={() => sendAndRedirect(value)}>
                         <FormField label="Survey Title" name="title" required>
@@ -86,6 +99,18 @@ const postNewSurvey = (surveyInfo) => {
     }
     else {
         console.log('User was null or undefined');
+    }
+};
+
+const theme = {
+    themeMode: 'light',
+    global: {
+      font: {
+        family: 'Lora'
+      },
+    },
+    heading: {
+      extend: `color: #233C33`
     }
 };
 

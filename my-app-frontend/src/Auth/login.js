@@ -1,4 +1,4 @@
-import { Box, Button, Grommet, Form, FormField, TextInput } from 'grommet';
+import { Box, Button, Grommet, Form, FormField, Heading, TextInput, Grid, Text } from 'grommet';
 import { postLogin } from '../redux-items/actions/login-actions';
 import { grommet } from 'grommet/themes';
 import { connect } from 'react-redux';
@@ -17,8 +17,11 @@ const Login = ({...props}) => {
     });
 
     return (
-        <Grommet theme={grommet}>
+        <Grommet theme={theme}>
             <Box fill align="center" justify="center">
+                <Heading level={2} size="large">
+                    Login
+                </Heading>
                 <Box width="medium">
                     <Form value={value} onChange={(nextValue) => setValue(nextValue)} onSubmit={() => props.postLogin(value)}>
 
@@ -30,7 +33,11 @@ const Login = ({...props}) => {
                             <TextInput name="password" type="password" />
                         </FormField>
 
-                        <Button label="Login" type="submit"/>
+                        <Grid columns={{count: 'fit', size: 'small'}} gap="medium">
+                            <Button label="Login" type="submit"/>
+                            <Text textAlign="center">Don't have an account?</Text>
+                            <Button label="Sign Up" type="submit"/>
+                        </Grid>
                     </Form>
                 </Box>
             </Box>
@@ -38,35 +45,16 @@ const Login = ({...props}) => {
     )
 };
 
-/*
-// Handle backend API call
-function postLogin(userInfo){
-    //event.preventDefault();
-    const user = {
-        email: userInfo.email,
-        password: userInfo.password
-    };
-    console.log('After logging in user:', user.email)
-
-    fetch('http://localhost:5000/login', {
-        method: 'POST',
-        headers: {
-            'Accept': "application/json",
-            'Content-Type': "application/json",
-            'Access-Control-Allow-Origin': "*"
-        },
-        body: JSON.stringify({
-            email: user.email,
-            password: user.password
-        }),
-    })
-    .then(res => res.json())
-    .then((res) => console.log(res))
-    .then(()=> console.log('Fetch is working (:'))
-    .catch((error) => {
-        console.error("Error:", error);
-    })
+const theme = {
+    themeMode: 'light',
+    global: {
+      font: {
+        family: 'Lora'
+      },
+    },
+    heading: {
+      extend: `color: #233C33`
+    }
 };
-*/
 
 export default connect(mapStateToProps, { postLogin })(Login);
