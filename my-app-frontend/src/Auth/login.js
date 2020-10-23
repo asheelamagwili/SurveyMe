@@ -4,6 +4,7 @@ import { grommet } from 'grommet/themes';
 import { connect } from 'react-redux';
 import React from 'react';
 
+// Test
 function mapStateToProps(state) {
     return {
       loginSuccess: state.loginSuccess,
