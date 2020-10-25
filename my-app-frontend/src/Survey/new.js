@@ -1,5 +1,7 @@
 import React from 'react';
 import { grommet } from 'grommet/themes';
+import { connect } from 'react-redux';
+import { postNewSurvey } from '../redux-items/actions/createSurvey-action';
 import { 
     Box, 
     Button, 
@@ -11,13 +13,14 @@ import {
     Heading
 } from 'grommet';
 
-const Create = () => {
-    return (
-        <CreateForm/>
-    )
-};
+function mapStateToProps(state) {
+    return {
+        createSurveySuccess: state.createSurveySuccess,
+    };
+}
 
-const CreateForm = () => {
+const Create = ({...props}) => {
+
     const [value, setValue] = React.useState ({
         title: "",
         description: "",
@@ -27,7 +30,8 @@ const CreateForm = () => {
     });
 
     const sendAndRedirect = (value) => {
-        postNewSurvey(value);
+        props.postNewSurvey(value);
+        props.history.push('/surveys/create/questions');
     }
 
     return (
@@ -62,6 +66,7 @@ const CreateForm = () => {
     )
 };
 
+/*
 const postNewSurvey = (surveyInfo) => {
     console.log('Inside postNewSurvey');
 
@@ -101,6 +106,7 @@ const postNewSurvey = (surveyInfo) => {
         console.log('User was null or undefined');
     }
 };
+*/
 
 const theme = {
     themeMode: 'light',
@@ -111,7 +117,14 @@ const theme = {
     },
     heading: {
       extend: `color: #233C33`
+    },
+    button: {
+        extend: `border-color: #B5B2C2`,
+        hoverIndicator: {
+            extend: `color: #B5B2C2`,
+            background: 'neutral-2'
+        }
     }
 };
 
-export default Create;
+export default connect(mapStateToProps, { postNewSurvey })(Create);

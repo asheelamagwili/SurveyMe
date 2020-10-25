@@ -1,10 +1,9 @@
 import { Box, Button, Grommet, Form, FormField, Heading, TextInput, Grid, Text } from 'grommet';
 import { postLogin } from '../redux-items/actions/login-actions';
-import { grommet } from 'grommet/themes';
+import {Divider} from '../Components/Divider';
 import { connect } from 'react-redux';
 import React from 'react';
 
-// Test
 function mapStateToProps(state) {
     return {
       loginSuccess: state.loginSuccess,
@@ -36,8 +35,9 @@ const Login = ({...props}) => {
 
                         <Grid columns={{count: 'fit', size: 'small'}} gap="medium">
                             <Button label="Login" type="submit"/>
+                            <Divider/>
                             <Text textAlign="center">Don't have an account?</Text>
-                            <Button label="Sign Up" type="submit"/>
+                            <Button label="Sign Up" onClick={() => props.history.push('/register')} path="/login"/>
                         </Grid>
                     </Form>
                 </Box>
@@ -55,6 +55,12 @@ const theme = {
     },
     heading: {
       extend: `color: #233C33`
+    },
+    button: {
+        extend: `border-color: #B5B2C2`,
+        hoverIndicator: {
+            color: '#B5B2C2',
+        }
     }
 };
 

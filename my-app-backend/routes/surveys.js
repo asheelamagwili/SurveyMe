@@ -22,21 +22,11 @@ router.get('/', async (req, res) => {
         console.log('First survey from GET call: ' + surveys[0].title);
         res.json(surveys);
         console.log('After attempting to find survey')
-        /*res.render('surveys/index', {
-            surveys: surveys,
-            searchOptions: req.query
-        })*/
     } catch (err) {
         res.send(err);
         //res.redirect('/')
     }
 })
-
-// New survey route
-/*router.get('/new', (req,res) => {
-    // Creates new Survey object to manipulate the data base
-    //res.render('surveys/new', {survey: new Survey()})
-})*/
 
 // Create survey route
 router.post('/new', async (req,res) => {
@@ -54,13 +44,27 @@ router.post('/new', async (req,res) => {
     try {
         // Wait for survey.save() to finish then populate newSurvey
         await newSurvey.save();
-        console.log('Saved new survey');
+        console.log('Saved new survey: ' + newSurvey.title);
     } catch (err) {
-        /*res.render('surveys/new', {
-            survey: survey,
-            errorMessage: 'Error creating Survey'
-        })*/
+        console.log("Error: " + err);
     }
+})
+
+// Getting current questions
+router.get('/questions', async(req, res) => {
+    console.log('Inside GET request for questions to survey')
+
+    const questions = [];
+
+    //const curSurvey = Survey.findById(req.body)
+})
+
+// Adding questions to survey
+router.post('/questions', async(req,res) => {
+    console.log('Inside POST request for adding questions to survey')
+
+    const cur_survey = await Survey.findById(req.body.id);
+    //res.json('Hey from the backend! (:')
 })
 
 module.exports = router

@@ -1,6 +1,6 @@
 import { Box, Button, Grommet, Heading, Form, FormField, TextInput, Grid, Text, List } from 'grommet';
 import { postRegister } from '../redux-items/actions/register-actions';
-import { grommet } from 'grommet/themes';
+import {Divider} from '../Components/Divider';
 import { connect } from 'react-redux';
 import React from 'react';
 
@@ -39,8 +39,9 @@ const Register = ({...props}) => {
 
                         <Grid columns={{count: 'fit', size: 'small'}} gap="medium">
                             <Button label="Sign Up" type="submit"/>
+                            <Divider/>
                             <Text textAlign="center">Already have an account?</Text>
-                            <Button label="Login" type="submit"/>
+                            <Button label="Login" onClick={() => props.history.push('/login')}/>
                         </Grid>
                     </Form>
                 </Box>
@@ -59,6 +60,13 @@ const theme = {
     },
     heading: {
       extend: `color: #233C33`
+    },
+    button: {
+        extend: `border-color: #B5B2C2`,
+        hoverIndicator: {
+            extend: `color: #B5B2C2`,
+            background: 'neutral-2'
+        }
     }
 };
 

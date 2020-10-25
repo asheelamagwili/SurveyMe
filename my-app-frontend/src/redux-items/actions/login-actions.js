@@ -23,8 +23,7 @@ export function postLogin(userInfo){
         })
         .then(res => res.json())
         .then(()=> console.log('Fetch is working (:'))
-        .then((res) => {
-            console.log(res);
+        .then(() => {
             dispatch({ type: LOGIN_SUCCESS });
         })
         .catch((error) => {

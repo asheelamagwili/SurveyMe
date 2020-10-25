@@ -4,13 +4,19 @@ import { LOGIN_SUCCESS } from '../constants/types';
 import { LOGIN_ERROR } from '../constants/types';
 import { DISPLAY_SURVEYS_SUCCESS } from '../constants/types';
 import { DISPLAY_SURVEYS_ERROR } from '../constants/types';
+import { QUESTIONS_SUCCESS } from '../constants/types';
+import { QUESTIONS_ERROR } from '../constants/types';
+import { CREATE_SURVEY_SUCCESS } from '../constants/types';
+import { CREATE_SURVEY_ERROR } from '../constants/types';
 
 
 const initialState = {
-    displayQuestionSuccess : false,
-    displayQuestionError : false,
+    questionsSuccess : false,
+    questionsError : false,
     displaySurveysSuccess : false,
     displaySurveysError : false,
+    createSurveySuccess: false,
+    createSurveyError: false,
     registerSuccess : false,
     registerError : false,
     loginSuccess : false,
@@ -53,8 +59,23 @@ function rootReducer(state = initialState, action) {
     }
 
     // Survey
+    if(action.type === CREATE_SURVEY_SUCCESS){
+        return {
+            ...state, 
+            createSurveySuccess : true,
+            createSurveyError : false,
+        }
+    }
+
+    if(action.type === CREATE_SURVEY_ERROR){
+        return {
+            ...state, 
+            createSurveySuccess : false,
+            createSurveyError : true,
+        }
+    }
+
     if(action.type === DISPLAY_SURVEYS_SUCCESS){
-        //console.log(action.payload);
         return {
             ...state, 
             displaySurveysSuccess : true,
@@ -71,6 +92,23 @@ function rootReducer(state = initialState, action) {
             surveyData: action.payload
         }
     }
+
+    if(action.type === QUESTIONS_SUCCESS){
+        return {
+            ...state, 
+            questionsSuccess : true,
+            questionsError : false,
+        }
+    }
+
+    if(action.type === QUESTIONS_ERROR){
+        return {
+            ...state, 
+            questionsSuccess : false,
+            questionsError : true,
+        }
+    }
+
 
     return state;
 };

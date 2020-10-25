@@ -1,56 +1,71 @@
 import React, { useState } from 'react';
-import { Box, Button, Grommet, Select, Form, FormField, TextArea } from 'grommet';
+import { Box, Button, Grommet, Heading, Form, FormField, TextArea, TextInput } from 'grommet';
 import { grommet } from 'grommet/themes';
-import { Add } from 'grommet-icons';
-import { BrowserRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { postQuestions } from '../redux-items/actions/postQuestion-action';
 
 const defaultOptions = [];
 defaultOptions.push('Checkbox');
 defaultOptions.push('True or False');
 defaultOptions.push('Multiple Choice');
 
-const Questions = () => {
+function mapStateToProps(state) {
+    return {
+      questionsSuccess: state.questionsSuccess,
+    };
+}
+
+const Questions = ({...props}, survey) => {
     let displayForm = false;
     const [options, setOptions] = useState(defaultOptions);
-    const [value, setValue] = useState('');
+    const [value, setValue] = React.useState({
+        survey_id: survey._id,
+        question: "",
+        Answers: []
+    });
 
-    function displayFormField(){
-
-        return (
-            <Form>
-                <FormField name="question" label="Question" required>
-                    <TextArea name="question" />
-                </FormField>
-            </Form>
-        )
+    const sendAndRedirect = (value) => {
+        console.log(value);
     }
 
     return (
-        <Grommet full theme={grommet}>
-            <Box fill align="start" justify="center" margin="small" direction="row" wrap>
-                <Select
-                    size="medium"
-                    placeholder="Select"
-                    value={value}
-                    options={options}
-                    onChange={({ option }) => setValue(option)}
-                    onClose={() => setOptions(defaultOptions)}
-                    onSearch={text => {
-                    // The line below escapes regular expression special characters:
-                    // [ \ ^ $ . | ? * + ( )
-                    const escapedText = text.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
-        
-                    // Create the regular expression with modified value which
-                    // handles escaping special characters. Without escaping special
-                    // characters, errors will appear in the console
-                    const exp = new RegExp(escapedText, 'i');
-                    setOptions(defaultOptions.filter(o => exp.test(o)));
-                    }}
-                />
-                
+        <Grommet theme={theme}>
+            <Box fill align="center" justify="evenly">
+                <Heading level={2} size="large" alignSelf="center">
+                    Add Questions
+                </Heading>
+                <Form value={value} onChange={(nextValue) => setValue(nextValue)} onSubmit={() => sendAndRedirect(value)}>
+                    <FormField name="question" label="Question" required>
+                        <TextInput name="question" type="text"/>
+                    </FormField>
+                    <FormField name="answer" label="Answer" required>
+                        <TextInput name="answer" type="text"/>
+                    </FormField>
+
+                    <Button label="Add" type="submit"></Button>
+                </Form>
             </Box>
         </Grommet>
     );
 };
 
-export default Questions;
+const theme = {
+    themeMode: 'light',
+    global: {
+      font: {
+        family: 'Lora'
+      },
+    },
+    heading: {
+      extend: `color: #233C33`
+    },
+    button: {
+        extend: `border-color: #B5B2C2`,
+        hoverIndicator: {
+            extend: `color: #B5B2C2`,
+            background: 'neutral-2'
+        }
+    }
+};
+
+export default connect(mapStateToProps, { postQuestions })(Questions);
