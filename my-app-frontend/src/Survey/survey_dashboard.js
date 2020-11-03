@@ -21,7 +21,6 @@ function mapStateToProps(state) {
   return {
     surveyData: state.surveyData,
     displaySurveysSuccess: state.displaySurveysSuccess,
-    
   };
 };
 
@@ -39,9 +38,14 @@ class SurveyDashboard extends React.Component {
       //console.log( this.props.surveyData );
     }
 
-    sendAndRedirect = (value) => {
+    sendAndRedirect(value){
+      //console.log('Survey Title: ' + value.title);
       // Send the current survey clicked to the questions page
-      this.props.getQuestions(value);
+      //this.props.getQuestions(value);
+      this.props.history.push({
+        pathname: '/surveys/create/questions',
+        state: value
+      });
     }
 
     render () {
@@ -70,7 +74,7 @@ class SurveyDashboard extends React.Component {
                   {surveys.map((survey) =>
                     <Card
                       key={survey.title}
-                      onClick={(cur_survey) => this.props.history.push('/surveys/create/questions')}
+                      onClick={() => this.sendAndRedirect(survey)}
                     >
                         <CardBody pad="small">
                           <Identifier

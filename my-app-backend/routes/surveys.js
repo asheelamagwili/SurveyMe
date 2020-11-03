@@ -53,8 +53,13 @@ router.post('/new', async (req,res) => {
 // Getting current questions
 router.get('/questions', async(req, res) => {
     console.log('Inside GET request for questions to survey')
+    console.log('Current survey: ' + req.body._id);
 
-    const questions = [];
+    const questions = [
+        {title: "dummmmyyyy", _id:"asdfsdfsdf"}
+    ];
+
+    res.json({questions});
 
     //const curSurvey = Survey.findById(req.body)
 })
@@ -62,8 +67,15 @@ router.get('/questions', async(req, res) => {
 // Adding questions to survey
 router.post('/questions', async(req,res) => {
     console.log('Inside POST request for adding questions to survey')
+    console.log('Current survey id: ');
+    console.log(req.body._id);
 
-    const cur_survey = await Survey.findById(req.body.id);
+    try {
+        const cur_survey = await Survey.findById(req.body.id);
+        console.log(cur_survey.title);
+    } catch(error) {
+        console.log("Error: " + error);
+    }
     //res.json('Hey from the backend! (:')
 })
 

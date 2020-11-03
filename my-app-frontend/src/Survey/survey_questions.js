@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, setState } from 'react';
 import { Box, Button, Grommet, Heading, Form, FormField, TextArea, TextInput } from 'grommet';
 import { grommet } from 'grommet/themes';
 import { connect } from 'react-redux';
 import { postQuestions } from '../redux-items/actions/postQuestion-action';
+import { getQuestions } from '../redux-items/actions/getQuestion-action'
 
 const defaultOptions = [];
 defaultOptions.push('Checkbox');
@@ -11,42 +12,89 @@ defaultOptions.push('Multiple Choice');
 
 function mapStateToProps(state) {
     return {
-      questionsSuccess: state.questionsSuccess,
+        surveyData: state.surveyData,
+        questionsSuccess: state.questionsSuccess,
     };
 }
 
-const Questions = ({...props}, survey) => {
-    let displayForm = false;
-    const [options, setOptions] = useState(defaultOptions);
-    const [value, setValue] = React.useState({
-        survey_id: survey._id,
-        question: "",
-        Answers: []
-    });
+/*
+const [value, setValue] = React.useState({
+    survey_id: "",
+    question: "",
+    answer: []
+});*/
 
-    const sendAndRedirect = (value) => {
-        console.log(value);
+//const Questions = ({...props}, survey) => {
+class Questions extends React.Component{
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            question: '',
+            answer: '',
+            survey_id: ''
+        };
     }
 
-    return (
-        <Grommet theme={theme}>
-            <Box fill align="center" justify="evenly">
-                <Heading level={2} size="large" alignSelf="center">
-                    Add Questions
-                </Heading>
-                <Form value={value} onChange={(nextValue) => setValue(nextValue)} onSubmit={() => sendAndRedirect(value)}>
-                    <FormField name="question" label="Question" required>
-                        <TextInput name="question" type="text"/>
-                    </FormField>
-                    <FormField name="answer" label="Answer" required>
-                        <TextInput name="answer" type="text"/>
-                    </FormField>
+    componentDidMount() {
+        this.props.getQuestions(this.props.location.state);
+    }
 
-                    <Button label="Add" type="submit"></Button>
-                </Form>
-            </Box>
-        </Grommet>
-    );
+    handleQuestion(event) {
+        this.setState({question: event.target.question,});
+    }
+
+    handleAnswer(event) {
+        this.setState({answer: event.target.answer});
+    }
+
+    sendAndRedirect() {
+        this.props.postQuestions({
+            survey_id: "asdfasdf", 
+            question: this.state.question, 
+            answer: this.state.answer
+        });
+    }
+
+    render () {
+        let component;
+        let title;
+        console.log('Data received: ');
+        console.log(this.props.surveyData);
+
+        // Make sure the survey was retrieved
+        if(this.props.surveyData === null || this.props.surveyData === undefined) {
+            title = 'Cannot find Survey';
+        }
+        else {
+            title = this.props.surveyData.title;
+        }
+
+        component =  (
+            <Grommet theme={theme}>
+                <Box fill align="center" justify="evenly">
+                    <Heading level={2} size="large" alignSelf="center">
+                        {title}
+                    </Heading>
+                    <Heading level={3}>
+                        Add a Question
+                    </Heading>
+                    <Form value={this.state.value} onChange={() => this.handleChange} onSubmit={() => this.sendAndRedirect()}>
+                        <FormField name="question" label="Question" required>
+                            <TextInput name="question" type="text" value={this.state.question} onClick={this.handleQuestion}/>
+                        </FormField>
+                        <FormField name="answer" label="Answer" required>
+                            <TextInput name="answer" type="text" value={this.state.answer} onClick={this.handleAnswer}/>
+                        </FormField>
+
+                        <Button label="Add" type="submit"></Button>
+                    </Form>
+                </Box>
+            </Grommet>
+        );
+
+        return component;
+    }
 };
 
 const theme = {
@@ -68,4 +116,4 @@ const theme = {
     }
 };
 
-export default connect(mapStateToProps, { postQuestions })(Questions);
+export default connect(mapStateToProps, { postQuestions, getQuestions })(Questions);
