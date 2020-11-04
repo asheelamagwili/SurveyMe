@@ -98,7 +98,7 @@ function rootReducer(state = initialState, action) {
             ...state, 
             questionsSuccess : true,
             questionsError : false,
-            surveyData: action.payload
+            surveyData: action.payload,
         }
     }
 
@@ -107,7 +107,7 @@ function rootReducer(state = initialState, action) {
             ...state, 
             questionsSuccess : false,
             questionsError : true,
-            surveyData: action.payload
+            surveyData: action.payload,
         }
     }
 

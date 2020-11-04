@@ -43,7 +43,7 @@ class SurveyDashboard extends React.Component {
       // Send the current survey clicked to the questions page
       //this.props.getQuestions(value);
       this.props.history.push({
-        pathname: '/surveys/create/questions',
+        pathname: '/questions',
         state: value
       });
     }

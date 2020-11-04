@@ -40,7 +40,7 @@ function App() {
               <Link to="/surveys/create">Create</Link>
             </li>
             <li>
-              <Link to="/surveys/create/questions">Questions</Link>
+              <Link to="/questions">Questions</Link>
             </li>
             <li>
               <Link to="/">Home</Link>
@@ -54,7 +54,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
-          <Route exact path="/surveys/create/questions" component={Questions} />
+          <Route exact path="/questions" component={Questions} />
           <Route exact path="/surveys/create" component={Create} />
           <Route path="/surveys" component={SurveyDashboard} />
           <Route exact path="/" component={Home} />

@@ -4,15 +4,16 @@ import { QUESTIONS_SUCCESS, QUESTIONS_ERROR } from '../constants/types';
 export function postQuestions(questionInfo) {
 
     const survey_to_edit = {
-        survey_id: questionInfo.asurvey_id,
+        survey_id: questionInfo.survey_id,
+        survey_title: questionInfo.title,
         question: questionInfo.question,
         answer: questionInfo.answer
     }
     console.log('Question to POST: ');
-    console.log(survey_to_edit);
+    console.log(survey_to_edit); // id and title are not being passed into here
 
     return function (dispatch) {
-        return fetch('http://localhost:5000/surveys/questions', {
+        return fetch('http://localhost:5000/questions', {
             method: 'POST',
             headers: {
                 'Accept': "application/json",
@@ -21,13 +22,13 @@ export function postQuestions(questionInfo) {
             },
             body: JSON.stringify({
                 survey_id: survey_to_edit.survey_id,
+                survey_title: survey_to_edit.survey_title,
                 question: survey_to_edit.question,
                 answer: survey_to_edit.answer
             })
         })
         .then(res => res.json())
         .then(() => console.log('Fetch is working in postQuestions (:'))
-        .then(test => console.log('Response: ' + test))
         .then(res => dispatch({
             type: QUESTIONS_SUCCESS,
             payload: res

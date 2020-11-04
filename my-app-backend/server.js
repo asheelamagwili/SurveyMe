@@ -12,6 +12,7 @@ const surveysRouter = require('./routes/surveys')
 const userRouter = require('./routes/user')
 const registerRouter = require('./routes/register')
 const loginRouter = require('./routes/login')
+const questionRouter = require('./routes/questions')
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ db.once('open', error => console.log('Connected to Mongoose'))
 
 // Route Middlewares - use routes
 app.use('/', indexRouter)
+app.use('/questions', questionRouter)
 app.use('/surveys', surveysRouter)
 app.use('/user', userRouter)
 app.use('/register', registerRouter)

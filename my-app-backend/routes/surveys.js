@@ -24,7 +24,6 @@ router.get('/', async (req, res) => {
         console.log('After attempting to find survey')
     } catch (err) {
         res.send(err);
-        //res.redirect('/')
     }
 })
 
@@ -50,33 +49,46 @@ router.post('/new', async (req,res) => {
     }
 })
 
+/*
 // Getting current questions
 router.get('/questions', async(req, res) => {
     console.log('Inside GET request for questions to survey')
-    console.log('Current survey: ' + req.body._id);
+    console.log(req.body);
 
-    const questions = [
-        {title: "dummmmyyyy", _id:"asdfsdfsdf"}
-    ];
-
-    res.json({questions});
-
-    //const curSurvey = Survey.findById(req.body)
+    // Find all questions belonging to current survey
+    const all_questions = await Questions.find({survey_id: req.body.id})
+    console.log('FOUND THE FOLLOWING QUESTIONS: ');
+    console.log(all_questions);
+    res.json(all_questions);
 })
 
 // Adding questions to survey
 router.post('/questions', async(req,res) => {
     console.log('Inside POST request for adding questions to survey')
-    console.log('Current survey id: ');
-    console.log(req.body._id);
+    console.log(req.body);
 
     try {
-        const cur_survey = await Survey.findById(req.body.id);
-        console.log(cur_survey.title);
+        // Find the survey to edit
+        const cur_survey = await Survey.findById(req.body.survey_id);
+
+        // Save new question to DB
+        const new_question = new Questions({
+            survey_id: req.body.survey_id,
+            survey_title: req.body.survey_title,
+            question: req.body.question,
+            answer: req.body.answer
+        });
+        await new_question.save();
+
+        // Return updated questions
+
+        // Find all questions belonging to current survey
+        const all_questions = await Questions.find({survey_id: req.body.id});
+        res.json(all_questions);
+
     } catch(error) {
         console.log("Error: " + error);
     }
-    //res.json('Hey from the backend! (:')
 })
-
+*/
 module.exports = router
