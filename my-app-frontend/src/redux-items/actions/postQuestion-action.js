@@ -9,8 +9,6 @@ export function postQuestions(questionInfo) {
         question: questionInfo.question,
         answer: questionInfo.answer
     }
-    console.log('Question to POST: ');
-    console.log(survey_to_edit); // id and title are not being passed into here
 
     return function (dispatch) {
         return fetch('http://localhost:5000/questions', {

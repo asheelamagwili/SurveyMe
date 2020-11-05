@@ -7,6 +7,7 @@ import Create from './Survey/new';
 import SurveyDashboard from './Survey/survey_dashboard'
 import Questions from './Survey/survey_questions';
 import Navigation from './Navigation/navigation';
+import Preview from './Survey/survey_preview';
 import './App.css';
 
 import {
@@ -55,6 +56,7 @@ function App() {
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/questions" component={Questions} />
+          <Route exact path="/survey/preview" component={Preview} />
           <Route exact path="/surveys/create" component={Create} />
           <Route path="/surveys" component={SurveyDashboard} />
           <Route exact path="/" component={Home} />

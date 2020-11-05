@@ -22,6 +22,7 @@ dotenv.config();
 //app.set('layout', 'layouts/layout')
 //app.use(expressLayouts)
 //app.use(express.static('public'))
+mongoose.set('useFindAndModify', false);
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false}))
 app.use(cors());
 app.use(express.json());

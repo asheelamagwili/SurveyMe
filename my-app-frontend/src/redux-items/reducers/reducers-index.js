@@ -8,9 +8,15 @@ import { QUESTIONS_SUCCESS } from '../constants/types';
 import { QUESTIONS_ERROR } from '../constants/types';
 import { CREATE_SURVEY_SUCCESS } from '../constants/types';
 import { CREATE_SURVEY_ERROR } from '../constants/types';
-
+import { DISPLAY_PREVIEW_SUCCESS } from '../constants/types';
+import { DISPLAY_PREVIEW_ERROR } from '../constants/types';
+import { OPEN_SURVEY_ERROR, OPEN_SURVEY_SUCCESS } from '../constants/types';
 
 const initialState = {
+    openSurveySuccess : false,
+    openSurveyError : false,
+    displayPreviewSuccess : false,
+    displayPreviewError : false,
     questionsSuccess : false,
     questionsError : false,
     displaySurveysSuccess : false,
@@ -108,6 +114,40 @@ function rootReducer(state = initialState, action) {
             questionsSuccess : false,
             questionsError : true,
             surveyData: action.payload,
+        }
+    }
+
+    if(action.type === DISPLAY_PREVIEW_SUCCESS) {
+        return {
+            ...state,
+            displayPreviewSuccess : true,
+            displayPreviewError : false,
+            surveyData: action.payload
+        }
+    }
+
+    if(action.type === DISPLAY_PREVIEW_ERROR) {
+        return {
+            ...state,
+            displayPreviewSuccess : false,
+            displayPreviewError : true,
+            surveyData: action.payload
+        }
+    }
+
+    if(action.type === OPEN_SURVEY_SUCCESS) {
+        return {
+            ...state,
+            openSurveySuccess : true,
+            openSurveyError : false
+        }
+    }
+
+    if(action.type === OPEN_SURVEY_ERROR) {
+        return {
+            ...state,
+            openSurveySuccess : false,
+            openSurveyError : true
         }
     }
 

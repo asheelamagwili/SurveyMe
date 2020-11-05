@@ -49,6 +49,55 @@ router.post('/new', async (req,res) => {
     }
 })
 
+router.put('/', async(req, res) => {
+    console.log('-----> PUT: Update survey status to open')
+    console.log(req.body.id);
+
+    if(req.body.action == 'open') {
+        // Changes the status of the survey to open
+        Survey.findByIdAndUpdate(
+            {_id: req.body.id}, 
+            {isOpen: true},
+            function (error, result) {
+                if(error) {
+                    res.send(error);
+                }
+                else {
+                    res.json(result);
+                }
+            }
+        );
+    }
+
+    else {
+        // Changes the status of the survey to close
+        Survey.findByIdAndUpdate(
+            {_id: req.body.id}, 
+            {isOpen: false},
+            function (error, result) {
+                if(error) {
+                    res.send(error);
+                }
+                else {
+                    res.json(result);
+                }
+            }
+        );
+    }
+
+    // Check if isOpen was updated
+    console.log('Found survey: ');
+    const cur_survey = Survey.findById(
+        req.body.id,
+        function (error, result) {
+            if(error)
+                console.log(error);
+            else
+                console.log(result);
+        }
+    );
+})
+
 /*
 // Getting current questions
 router.get('/questions', async(req, res) => {

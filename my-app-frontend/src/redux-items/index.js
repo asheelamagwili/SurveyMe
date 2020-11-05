@@ -5,6 +5,10 @@ import { getSurveys } from './actions/dashboard-actions';
 import { postQuestions } from './actions/postQuestion-action';
 import { getQuestions } from './actions/getQuestion-action';
 import { postNewSurvey } from './actions/createSurvey-action';
+import { getPreview } from './actions/getPreview-action';
+import { openSurvey } from './actions/openSurvey-action';
+import { closeSurvey } from './actions/closeSurvey-action';
+import { deleteQuestion } from './actions/deleteQuestion-action';
 
 window.store = store;
 window.postRegister = postRegister;
@@ -13,3 +17,7 @@ window.getSurveys = getSurveys;
 window.postQuestions = postQuestions;
 window.getQuestions = getQuestions;
 window.postNewSurvey = postNewSurvey;
+window.getPreview = getPreview;
+window.openSurvey = openSurvey;
+window.closeSurvey = closeSurvey;
+window.deleteQuestion = deleteQuestion;

@@ -9,10 +9,14 @@ router.get('/', async(req, res) => {
     console.log(req.body);
 
     // Find all questions belonging to current survey
-    const all_questions = await Questions.find({survey_id: req.body.id})
-    console.log('FOUND THE FOLLOWING QUESTIONS: ');
-    console.log(all_questions);
-    res.json(all_questions);
+    try {
+        const all_questions = await Questions.find({})
+        console.log('FOUND THE FOLLOWING QUESTIONS: ');
+        console.log(all_questions);
+        res.json(all_questions);
+    } catch(err) {
+        console.log('Error: ' + err);
+    }
 })
 
 // Adding questions to survey
@@ -42,6 +46,22 @@ router.post('/', async(req,res) => {
     } catch(error) {
         console.log("Error: " + error);
     }
+})
+
+// Delete questions from the DB
+router.put('/', async (req, res) => {
+    console.log('-----> PUT: Deleting a question from the DB');
+    console.log(req.body.id);
+
+    Questions.findByIdAndDelete(
+        req.body.id,
+        function (error, result) {
+            if(error)
+                console.log('Error: ' + error);
+            else
+                console.log('Deleted: ' + result);
+        }
+    );
 })
 
 module.exports = router

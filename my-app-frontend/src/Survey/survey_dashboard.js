@@ -55,7 +55,6 @@ class SurveyDashboard extends React.Component {
       const surveysProp = this.props.surveyData;
       for(let i in surveysProp) {
         surveys.push(surveysProp[i]);
-        //console.log('Survey ' + i + ' - ' + surveys[i].title);
       }
 
       if(this.props.surveyData === null || this.props.surveyData === undefined) {

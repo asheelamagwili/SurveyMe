@@ -2,6 +2,7 @@ import { QUESTIONS_SUCCESS, QUESTIONS_ERROR } from '../constants/types';
 
 export function getQuestions(questionInfo) {
     console.log('-----> getQuestions: redux actions');
+    let survey_questions = [];
     const survey = {
         title: questionInfo.title,
         id: questionInfo._id
@@ -10,27 +11,22 @@ export function getQuestions(questionInfo) {
     console.log(survey);
 
     return function(dispatch) {
-        return fetch('http://localhost:5000/questions'/*, {
-            method:'GET',
-            headers: {
-                'Accept': "application/json",
-                'Content-Type': "application/json",
-                'Access-Control-Allow-Origin': "*"
-            },
-            body: JSON.stringify({
-                title: survey.title,
-                id: survey.id
-            })
-        }*/)
+        return fetch('http://localhost:5000/questions')
         .then(res => res.json())
+        .then(all_questions => {
+            for(let i in all_questions) {
+                if(all_questions[i].survey_id == survey.id) {
+                    survey_questions.push(all_questions[i]);
+                }
+            }
+        })
         .then(console.log('Fetch is working in getQuestions (:'))
-        .then(json => {
-            console.log(json);
+        .then(() => {
             return dispatch({
                 type: QUESTIONS_SUCCESS,
-                payload: json
+                payload: survey_questions
             })
-        }) //Send payload with the current survey
+        })
         .catch((error) => {
             dispatch({type: QUESTIONS_ERROR});
         })
