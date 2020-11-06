@@ -21,6 +21,7 @@ function mapStateToProps(state) {
   return {
     surveyData: state.surveyData,
     displaySurveysSuccess: state.displaySurveysSuccess,
+    loginSuccess: state.loginSuccess
   };
 };
 
@@ -33,9 +34,9 @@ class SurveyDashboard extends React.Component {
     }
 
     componentDidMount() {
-      //console.log('-----> componentDidMount: front end')
       this.props.getSurveys();
-      //console.log( this.props.surveyData );
+
+      console.log(this.props.loginSuccess);
     }
 
     sendAndRedirect(value){

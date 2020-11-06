@@ -34,7 +34,7 @@ const Login = ({...props}) => {
                         </FormField>
 
                         <Grid columns={{count: 'fit', size: 'small'}} gap="medium">
-                            <Button label="Login" type="submit"/>
+                            <Button label="Login" type="submit" onClick={() => props.history.push('/profile')}/>
                             <Divider/>
                             <Text textAlign="center">Don't have an account?</Text>
                             <Button label="Sign Up" onClick={() => props.history.push('/register')} path="/login"/>
