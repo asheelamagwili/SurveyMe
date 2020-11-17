@@ -33,7 +33,6 @@ class Questions extends React.Component{
         this.state = {
             question: '',
             answer: '',
-            surveyStatus: '',
             curQuestion: '',
             // For pagination
             offset: 0,
@@ -98,7 +97,7 @@ class Questions extends React.Component{
     }
 
     displayStatus() {
-        if(this.state.surveyStatus == 'open')
+        if(this.props.location.state.isOpen)
             return 'Published';
         else
             return 'Private';

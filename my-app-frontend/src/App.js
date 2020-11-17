@@ -41,9 +41,6 @@ function App() {
               <Link to="/surveys/create">Create</Link>
             </li>
             <li>
-              <Link to="/questions">Questions</Link>
-            </li>
-            <li>
               <Link to="/">Home</Link>
             </li>
           </ul>
