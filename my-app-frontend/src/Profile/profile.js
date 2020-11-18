@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
     return {
-      loginSuccess: state.loginSuccess
+      loginSuccess: state.loginSuccess,
+      userData: state.userData
     };
 };
 
@@ -17,19 +18,16 @@ class Profile extends React.Component {
         }
     }
 
-    componentDidMount() {
+    render() {
+        let component;
+        const user = this.props.userData;
 
-        console.log(this.props.loginSuccess);
         // If the user is logged in then display their profile information
-        if(this.props.loginSuccess == true) {
-            this.state.username = 'Youre logged in!';
+        if(this.props.loginSuccess === true) {
+            this.state.username = user.name
         }
         else
             this.state.username = 'Youre not logged in!';
-    }
-
-    render() {
-        let component;
 
         component = (
             <div>

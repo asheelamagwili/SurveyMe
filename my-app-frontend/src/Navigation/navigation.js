@@ -1,6 +1,7 @@
 import { grommet } from 'grommet/themes';
 import { Box, Grommet, ResponsiveContext, Anchor, Menu, Nav, Header } from 'grommet';
 import React from 'react';
+import { Link } from "react-router-dom";
 
 
 const Navigation = () => {
@@ -9,7 +10,7 @@ const Navigation = () => {
         <Grommet theme={theme}>
             <Header pad="medium" background="#5A7D7C">
                 <Box direction="row" align="center" gap="small">
-                    SurveyMe
+                    <Link to="/" style={{ textDecoration: 'none' }}>SurveyMe</Link>
                 </Box>
 
                 <ResponsiveContext.Consumer>
@@ -18,14 +19,16 @@ const Navigation = () => {
                             <Menu
                             label="Menu"
                             items={[
-                                { label: 'Surveys', onClick: () => {} },
+                                { label: 'Survey Dashboard', onClick: () => {} },
                                 { label: 'Profile', onClick: () => {} },
+                                { label: 'Login', onClick: () => {} },
                             ]}
                             />
                         ) : (
                             <Nav direction="row">
-                                <Anchor href="/surveys" label="Surveys" />
+                                <Anchor href="/surveys" label="Dashboard" />
                                 <Anchor href="/profile" label="Profile" />
+                                <Anchor href="/login" label="Login" />
                             </Nav>
                         )
                     }

@@ -9,7 +9,7 @@ export function getPreview(surveyInfo) {
         .then(res => res.json())
         .then(all_questions => {
             for(let i in all_questions) {
-                if(all_questions[i].survey_id == surveyInfo._id) {
+                if(all_questions[i].survey_id === surveyInfo._id) {
                     questions.push(all_questions[i]);
                 }
             }

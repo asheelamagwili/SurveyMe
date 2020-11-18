@@ -53,6 +53,7 @@ function rootReducer(state = initialState, action) {
             ...state, 
             loginSuccess : true,
             loginError : false,
+            userData : action.payload
         }
     }
 
@@ -61,6 +62,7 @@ function rootReducer(state = initialState, action) {
             ...state, 
             loginSuccess : false,
             loginError : true,
+            userData: action.payload
         }
     }
 

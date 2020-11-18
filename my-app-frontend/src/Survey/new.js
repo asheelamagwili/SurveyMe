@@ -16,6 +16,8 @@ import {
 function mapStateToProps(state) {
     return {
         createSurveySuccess: state.createSurveySuccess,
+        loginSuccess: state.loginSuccess,
+        userData: state.userData
     };
 }
 
@@ -25,6 +27,7 @@ const Create = ({...props}) => {
         title: "",
         description: "",
         isOpen: "",
+        authorID: "", // Need at add authorID when a new survey is created so that we know who needs to have admin rights
         startDate: "",
         endDate: ""
     });
@@ -32,6 +35,8 @@ const Create = ({...props}) => {
     const sendAndRedirect = (value) => {
         props.postNewSurvey(value);
         props.history.push('/surveys/create/questions');
+        console.log('ID of user who created the survey: ')
+        console.log(props.state.userData);
     }
 
     return (

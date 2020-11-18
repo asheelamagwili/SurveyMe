@@ -34,6 +34,7 @@ router.post('/new', async (req,res) => {
         title: req.body.title,
         description: req.body.description,
         isOpen: req.body.isOpen,
+        authorID: req.body.authorID,
         startDate: req.body.startDate,
         endDate: req.body.endDate
     })
