@@ -70,12 +70,12 @@ class Questions extends React.Component{
     sendAndRedirect() {
         this.props.postQuestions({
             question: this.state.question,
-            answer: this.state.answer,
+            //answer: this.state.answer,
             survey_id: cur_survey._id,
         });
         this.setState({
             question: '',
-            answer: ''
+            //answer: ''
         });
     }
 

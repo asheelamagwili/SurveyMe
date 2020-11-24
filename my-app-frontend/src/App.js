@@ -8,6 +8,7 @@ import SurveyDashboard from './Survey/survey_dashboard'
 import Questions from './Survey/survey_questions';
 import Navigation from './Navigation/navigation';
 import Preview from './Survey/survey_preview';
+import SurveyView from './Survey/user_view';
 import './App.css';
 
 import {
@@ -41,6 +42,9 @@ function App() {
               <Link to="/surveys/create">Create</Link>
             </li>
             <li>
+              <Link to="/surveys/take">Take a Survey</Link>
+            </li>
+            <li>
               <Link to="/">Home</Link>
             </li>
           </ul>
@@ -55,6 +59,7 @@ function App() {
           <Route exact path="/questions" component={Questions} />
           <Route exact path="/survey/preview" component={Preview} />
           <Route exact path="/surveys/create" component={Create} />
+          <Route exact path="/surveys/take" component={SurveyView} />
           <Route path="/surveys" component={SurveyDashboard} />
           <Route exact path="/" component={Home} />
         </Switch>
