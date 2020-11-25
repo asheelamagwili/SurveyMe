@@ -59,32 +59,29 @@ class Create extends React.Component {
             endDate: this.state.endDate
         });
         this.props.history.push('/surveys/create/questions');
-        console.log('ID of user who created the survey: ')
-        console.log(this.props.state.userData);
     }
 
     // Form handlers
     handleTitle(event) {
         this.setState({title: event.target.value});
-        //event.preventDefault();
     }
 
     handleDescription(event) {
         this.setState({description: event.target.value});
-        //event.preventDefault();
     }
 
     handleStart(event) {
-        this.setState({startDate: event.target.value});
-        //event.preventDefault();
+        this.setState({startDate: event.value});
     }
 
     handleEnd(event) {
-        this.setState({endDate: event.target.value});
-        //event.preventDefault();
+        this.setState({endDate: event.value});
     }
 
     render() {
+
+        console.log('User Data: ');
+        console.log(this.props.userData);
         return (
             <Grommet theme={theme}>
                 <Box fill align="center" justify="center">
@@ -103,11 +100,11 @@ class Create extends React.Component {
                             </FormField>
 
                             <FormField name="startDate" label="Start Date" required>
-                                <DateInput name="startDate" format="mm/dd/yyyy" value={this.state.startDate} onChange={() => console.log(this.state.startDate)}/>
+                                <DateInput name="startDate" format="mm/dd/yyyy" value={this.state.startDate} onChange={this.handleStart}/>
                             </FormField>
 
                             <FormField name="endDate" label="End Date" required>
-                                <DateInput name="endDate" format="mm/dd/yyyy" value={this.state.endDate} onChange={() => this.handleEnd}/>
+                                <DateInput name="endDate" format="mm/dd/yyyy" value={this.state.endDate} onChange={this.handleEnd}/>
                             </FormField>
                             <Button label="Create" type="submit"/>
                         </Form>
