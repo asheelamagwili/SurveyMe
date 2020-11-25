@@ -54,7 +54,7 @@ class Create extends React.Component {
             title: this.state.title,
             description: this.state.description,
             isOpen: false,
-            authorID: 'autho id huhuhuh',
+            authorID: this.props.userData._id,
             startDate: this.state.startDate,
             endDate: this.state.endDate
         });
@@ -81,7 +81,7 @@ class Create extends React.Component {
     render() {
 
         console.log('User Data: ');
-        console.log(this.props.userData);
+        console.log(this.props.userData._id);
         return (
             <Grommet theme={theme}>
                 <Box fill align="center" justify="center">
