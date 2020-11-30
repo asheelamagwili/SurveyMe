@@ -100,39 +100,6 @@ class SurveyDashboard extends React.Component {
     }
 };
 
-/*
-const surveyCard = (surveys) => (
-  <Grommet theme={theme} full>
-    <Box alignSelf="center" pad="medium">
-      <Heading level={2} size="large" alignSelf="center">
-        Surveys
-      </Heading>
-      <Divider/>
-      <Grid gap="medium" rows="small" columns={{count: 'fit', size: 'small'}}>
-          {surveys.map((survey) =>
-            <Card
-              key={survey.title}
-              onClick={(survey) => props.history.push('/questions')}
-            >
-                <CardBody pad="small">
-                  <Identifier
-                    pad="small"
-                    title={survey.title}
-                    subTitle={survey.description}
-                    size="small"
-                    align="start"
-                  />
-                </CardBody>
-
-                <CardFooter pad={{horizontal: 'medium', vertical: 'small'}}/>
-            </Card>
-          )}
-      </Grid>
-    </Box>
-  </Grommet>
-)
-*/
-
 const Identifier = ({ children, title, subTitle, size, ...rest }) => (
     <Box gap="small" align="center" direction="row" pad="medium" {...rest}>
       {children}

@@ -21,6 +21,7 @@ class Profile extends React.Component {
     render() {
         let component;
         const user = this.props.userData;
+        localStorage.setItem('login_state', this.props.loginSuccess)
 
         // If the user is logged in then display their profile information
         if(this.props.loginSuccess === true) {
