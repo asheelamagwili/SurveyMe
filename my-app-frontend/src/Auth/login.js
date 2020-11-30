@@ -11,20 +11,50 @@ function mapStateToProps(state) {
     };
 }
 
-const Login = ({...props}) => {
-    const [value, setValue] = React.useState({
-        email: "",
-        password: ""
-    });
+//const Login = ({...props}) => {
+class Login extends React.Component{
 
-    function sendAndRedirect(value) {
-        props.postLogin(value);
-        props.history.push({
-            pathname: '/profile',
-            state: value
-        });
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: ''
+        }
+
+        this.sendAndRedirect = this.sendAndRedirect.bind(this);
+        this.handleEmail = this.handleEmail.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
     }
 
+    /*const [value, setValue] = React.useState({
+        email: "",
+        password: ""
+    });*/
+
+    sendAndRedirect(value) {
+        console.log('Before postLogin: ' + this.props.loginSuccess)
+        this.props.postLogin(value)
+        console.log('Login state in login: ' + this.props.loginSuccess)
+        localStorage.setItem('login_state', JSON.stringify(this.props.loginSuccess))
+        if(this.props.loginSuccess)
+            localStorage.setItem('name', this.props.userData.name)
+        console.log(this.props.userData);
+        this.props.history.push({
+            pathname: '/profile',
+            state: value
+        })
+    }
+
+    // Form handlers
+    handleEmail(event) {
+        this.setState({email: event.target.value});
+    }
+
+    handlePassword(event) {
+        this.setState({password: event.target.value});
+    }
+
+    render() {
     return (
         <Grommet theme={theme}>
             <Box fill align="center" justify="center">
@@ -32,27 +62,28 @@ const Login = ({...props}) => {
                     Login
                 </Heading>
                 <Box width="medium">
-                    <Form value={value} onChange={(nextValue) => setValue(nextValue)}>
+                    <Form value={this.state.value} onSubmit={() => this.sendAndRedirect(this.state)}>
 
                         <FormField label="Email" name="email" required>
-                            <TextInput name="email" type="email" />
+                            <TextInput name="email" type="email" value={this.state.email} onChange={this.handleEmail} />
                         </FormField>
 
                         <FormField label="Password" name="password" required>
-                            <TextInput name="password" type="password" />
+                            <TextInput name="password" type="password" value={this.state.password} onChange={this.handlePassword}/>
                         </FormField>
 
                         <Grid columns={{count: 'fit', size: 'small'}} gap="medium">
-                            <Button label="Login" type="submit" onClick={() => sendAndRedirect(value)}/>
+                            <Button label="Login" type="submit"/>
                             <Divider/>
                             <Text textAlign="center">Don't have an account?</Text>
-                            <Button label="Sign Up" onClick={() => props.history.push('/register')} path="/login"/>
+                            <Button label="Sign Up" onClick={() => this.props.history.push('/register')} path="/login"/>
                         </Grid>
                     </Form>
                 </Box>
             </Box>
         </Grommet>
     )
+    }
 };
 
 const theme = {

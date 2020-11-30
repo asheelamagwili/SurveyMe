@@ -30,7 +30,7 @@ export function postLogin(userInfo){
         })
         .catch((error) => {
             console.error("Error:", error);
-            dispatch({ type: LOGIN_ERROR });
+            return dispatch({ type: LOGIN_ERROR });
         })
     }
 };

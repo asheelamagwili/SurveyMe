@@ -19,25 +19,32 @@ class Navigation extends React.Component {
         super(props);
 
         this.toDashboard = this.toDashboard.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     toDashboard() {
         this.props.history.push({pathname: '/surveys'});
     }
 
+    handleLogout() {
+        localStorage.setItem('login_state', "false");
+    }
+
     render() {
         let min_nav_component;
         let nav_component;
-        if(this.props.loginSuccess) {
+        if(localStorage.getItem('login_state') == 'true') {
             min_nav_component = [
                 { label: 'Dashboard', onClick: () => { this.toDashboard() }},
                 { label: 'Profile', onClick: () => {} },
+                { label: 'Logout', onClick: () => {this.handleLogout()} },
             ];
 
             nav_component = (
                 <Nav direction="row">
                     <Anchor href="/surveys" label="Dashboard" />
                     <Anchor href="/profile" label="Profile" />
+                    <Anchor href="/login" label="Logout" onClick={this.handleLogout()}/>
                 </Nav>
             )
         }

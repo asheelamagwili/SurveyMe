@@ -14,27 +14,36 @@ class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: ''
+            username: '',
+            login_state: ''
         }
     }
+
+    
 
     render() {
         let component;
         const user = this.props.userData;
-        localStorage.setItem('login_state', this.props.loginSuccess)
+        const login_val = localStorage.getItem('login_state');
+
+        console.log('Login state in profile: ' + login_val);
 
         // If the user is logged in then display their profile information
-        if(this.props.loginSuccess === true) {
-            this.state.username = user.name
+        //if(this.props.loginSuccess === true) {
+        if(login_val == 'true') {
+            const name_val = localStorage.getItem('name');
+            component = (
+                <div>
+                    <h1>{name_val}</h1>
+                </div>
+            )
         }
         else
-            this.state.username = 'Youre not logged in!';
-
-        component = (
-            <div>
-                <h1>{this.state.username}</h1>
-            </div>
-        )
+            component = (
+                <div>
+                    <h1>Login to see your Profile!</h1>
+                </div>
+            )
 
         return component;
     }
