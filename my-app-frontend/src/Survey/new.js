@@ -16,97 +16,105 @@ import {
 function mapStateToProps(state) {
     return {
         createSurveySuccess: state.createSurveySuccess,
+        loginSuccess: state.loginSuccess,
+        userData: state.userData
     };
 }
 
-const Create = ({...props}) => {
-
-    const [value, setValue] = React.useState ({
+//const Create = ({...props}) => {
+class Create extends React.Component {
+    /*const [value, setValue] = React.useState ({
         title: "",
         description: "",
         isOpen: "",
+        authorID: "", // Need at add authorID when a new survey is created so that we know who needs to have admin rights
         startDate: "",
         endDate: ""
-    });
+    });*/
 
-    const sendAndRedirect = (value) => {
-        props.postNewSurvey(value);
-        props.history.push('/surveys/create/questions');
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            description: '',
+            isOpen: '',
+            authorID: '',
+            startDate: '',
+            endDate: ''
+        };
+
+        this.handleTitle = this.handleTitle.bind(this);
+        this.handleDescription = this.handleDescription.bind(this);
+        this.handleStart = this.handleStart.bind(this);
+        this.handleEnd = this.handleEnd.bind(this);
     }
 
-    return (
-        <Grommet theme={theme}>
-            <Box fill align="center" justify="center">
-                <Heading level={2} size="large">
-                    Create a Survey
-                </Heading>
+    sendAndRedirect() {
+        this.props.postNewSurvey({
+            title: this.state.title,
+            description: this.state.description,
+            isOpen: false,
+            //authorID: this.props.userData._id,
+            authorID: 'meeep',
+            startDate: this.state.startDate,
+            endDate: this.state.endDate
+        });
+        this.props.history.push('/surveys/create/questions');
+    }
 
-                <Box width="medium">
-                    <Form value={value} onChange={(nextValue) => setValue(nextValue)} onSubmit={() => sendAndRedirect(value)}>
-                        <FormField label="Survey Title" name="title" required>
-                            <TextInput name="title" type="text" />
-                        </FormField>
+    // Form handlers
+    handleTitle(event) {
+        this.setState({title: event.target.value});
+    }
 
-                        <FormField label="Description" name="description" required>
-                            <TextInput name="description" type="text" />
-                        </FormField>
+    handleDescription(event) {
+        this.setState({description: event.target.value});
+    }
 
-                        <FormField name="startDate" label="Start Date" required>
-                            <DateInput name="startDate" format="mm/dd/yyyy" />
-                        </FormField>
+    handleStart(event) {
+        this.setState({startDate: event.value});
+    }
 
-                        <FormField name="endDate" label="End Date" required>
-                            <DateInput name="endDate" format="mm/dd/yyyy" />
-                        </FormField>
-                        <Button label="Create" type="submit"/>
-                    </Form>
+    handleEnd(event) {
+        this.setState({endDate: event.value});
+    }
+
+    render() {
+
+        //console.log('User Data: ');
+        //console.log(this.props.userData._id);
+        return (
+            <Grommet theme={theme}>
+                <Box fill align="center" justify="center">
+                    <Heading level={2} size="large">
+                        Create a Survey
+                    </Heading>
+
+                    <Box width="medium">
+                        <Form value={this.state.value} onSubmit={() => this.sendAndRedirect(this.state.value)}>
+                            <FormField label="Survey Title" name="title" required>
+                                <TextInput name="title" type="text" value={this.state.title} onChange={this.handleTitle} />
+                            </FormField>
+
+                            <FormField label="Description" name="description" required>
+                                <TextInput name="description" type="text" value={this.state.description} onChange={this.handleDescription}/>
+                            </FormField>
+
+                            <FormField name="startDate" label="Start Date" required>
+                                <DateInput name="startDate" format="mm/dd/yyyy" value={this.state.startDate} onChange={this.handleStart}/>
+                            </FormField>
+
+                            <FormField name="endDate" label="End Date" required>
+                                <DateInput name="endDate" format="mm/dd/yyyy" value={this.state.endDate} onChange={this.handleEnd}/>
+                            </FormField>
+                            <Button label="Create" type="submit"/>
+                        </Form>
+                    </Box>
                 </Box>
-            </Box>
-        </Grommet>
-    )
-};
-
-/*
-const postNewSurvey = (surveyInfo) => {
-    console.log('Inside postNewSurvey');
-
-    const survey = {
-        title: surveyInfo.title,
-        description: surveyInfo.description,
-        isOpen: false,
-        startDate: surveyInfo.startDate,
-        endDate: surveyInfo.endDate
-    }
-
-    console.log('After creating new survey: ' + survey.title);
-
-    if(typeof survey !== 'undefined' && survey !== null) {
-        fetch('http://localhost:5000/surveys/new', {
-            method: 'POST',
-            headers: {
-                'Accept': "application/json",
-                'Content-Type': "application/json",
-                'Access-Control-Allow-Origin': "*"
-            },
-            body: JSON.stringify({
-                title: survey.title,
-                description: survey.description,
-                isOpen: false,
-                startDate: survey.startDate,
-                endDate: survey.endDate
-            }),
-        })
-        .then(res => res.json())
-        .then(() => console.log('Fetch is working :)'))
-        .catch((error) => {
-            console.error("Error: ", error);
-        })
-    }
-    else {
-        console.log('User was null or undefined');
+            </Grommet>
+        )
     }
 };
-*/
 
 const theme = {
     themeMode: 'light',

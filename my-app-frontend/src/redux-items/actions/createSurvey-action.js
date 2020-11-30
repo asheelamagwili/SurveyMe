@@ -8,6 +8,7 @@ export function postNewSurvey(surveyInfo){
         title: surveyInfo.title,
         description: surveyInfo.description,
         isOpen: false,
+        authorID: surveyInfo.authorID,
         startDate: surveyInfo.startDate,
         endDate: surveyInfo.endDate
     }
@@ -28,14 +29,17 @@ export function postNewSurvey(surveyInfo){
                     title: survey.title,
                     description: survey.description,
                     isOpen: false,
+                    authorID: survey.authorID,
                     startDate: survey.startDate,
                     endDate: survey.endDate
                 }),
             })
             .then(res => res.json())
             .then(() => console.log('Fetch is working :)'))
-            .then(() => {
-                dispatch({ type: CREATE_SURVEY_SUCCESS });
+            .then(json => {
+                dispatch({ 
+                    type: CREATE_SURVEY_SUCCESS
+                });
             })
             .catch((error) => {
                 console.error("Error: ", error);

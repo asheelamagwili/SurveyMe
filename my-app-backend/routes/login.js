@@ -41,9 +41,10 @@ router.post('/', async (req, res) => {
         {expiresIn: "7d"}
     );*/
     console.log('Finished authenticating user')
+    console.log(user);
 
     //res.json({accessToken: token});
-    res.json({user});
+    res.json(user);
 
     //res.header('auth-token', token).redirect('user/profile');
     //res.redirect('user/profile');

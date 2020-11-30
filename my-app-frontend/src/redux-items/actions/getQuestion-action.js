@@ -1,20 +1,32 @@
 import { QUESTIONS_SUCCESS, QUESTIONS_ERROR } from '../constants/types';
 
 export function getQuestions(questionInfo) {
-    console.log('Inside getQuestion action');
+    console.log('-----> getQuestions: redux actions');
+    let survey_questions = [];
     const survey = {
         title: questionInfo.title,
-        id: questionInfo.id
+        id: questionInfo._id
     }
+    console.log('Looking for: ');
     console.log(survey);
-    
+
     return function(dispatch) {
-        fetch('http://localhost:5000/surveys/questions')
+        return fetch('http://localhost:5000/questions')
         .then(res => res.json())
+        .then(all_questions => {
+            for(let i in all_questions) {
+                if(all_questions[i].survey_id == survey.id) {
+                    survey_questions.push(all_questions[i]);
+                }
+            }
+        })
         .then(console.log('Fetch is working in getQuestions (:'))
-        .then(() => dispatch({
-            type: QUESTIONS_SUCCESS
-        })) //Send payload with the current survey
+        .then(() => {
+            return dispatch({
+                type: QUESTIONS_SUCCESS,
+                payload: survey_questions
+            })
+        })
         .catch((error) => {
             dispatch({type: QUESTIONS_ERROR});
         })

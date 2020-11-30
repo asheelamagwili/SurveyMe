@@ -9,7 +9,7 @@ export function postLogin(userInfo){
     console.log('Logging in user:', user.email)
 
     return function (dispatch) {
-        fetch('http://localhost:5000/login', {
+        return fetch('http://localhost:5000/login', {
             method: 'POST',
             headers: {
                 'Accept': "application/json",
@@ -22,13 +22,15 @@ export function postLogin(userInfo){
             }),
         })
         .then(res => res.json())
-        .then(()=> console.log('Fetch is working (:'))
-        .then(() => {
-            dispatch({ type: LOGIN_SUCCESS });
+        .then(json => {
+            return dispatch({ 
+                type: LOGIN_SUCCESS,
+                payload: json
+            });
         })
         .catch((error) => {
             console.error("Error:", error);
-            dispatch({ type: LOGIN_ERROR });
+            return dispatch({ type: LOGIN_ERROR });
         })
     }
 };

@@ -7,6 +7,7 @@ const surveySchema = new mongoose.Schema({
     },
     description: String,
     isOpen: Boolean,
+    authorID: String,
     startDate: Date,
     endDate: Date
 })

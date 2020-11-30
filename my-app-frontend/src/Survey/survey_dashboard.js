@@ -21,7 +21,7 @@ function mapStateToProps(state) {
   return {
     surveyData: state.surveyData,
     displaySurveysSuccess: state.displaySurveysSuccess,
-    
+    loginSuccess: state.loginSuccess
   };
 };
 
@@ -34,14 +34,19 @@ class SurveyDashboard extends React.Component {
     }
 
     componentDidMount() {
-      //console.log('-----> componentDidMount: front end')
       this.props.getSurveys();
-      //console.log( this.props.surveyData );
+
+      console.log(this.props.loginSuccess);
     }
 
-    sendAndRedirect = (value) => {
+    sendAndRedirect(value){
+      //console.log('Survey Title: ' + value.title);
       // Send the current survey clicked to the questions page
-      this.props.getQuestions(value);
+      //this.props.getQuestions(value);
+      this.props.history.push({
+        pathname: '/questions',
+        state: value
+      });
     }
 
     render () {
@@ -51,7 +56,6 @@ class SurveyDashboard extends React.Component {
       const surveysProp = this.props.surveyData;
       for(let i in surveysProp) {
         surveys.push(surveysProp[i]);
-        //console.log('Survey ' + i + ' - ' + surveys[i].title);
       }
 
       if(this.props.surveyData === null || this.props.surveyData === undefined) {
@@ -70,7 +74,7 @@ class SurveyDashboard extends React.Component {
                   {surveys.map((survey) =>
                     <Card
                       key={survey.title}
-                      onClick={(cur_survey) => this.props.history.push('/surveys/create/questions')}
+                      onClick={() => this.sendAndRedirect(survey)}
                     >
                         <CardBody pad="small">
                           <Identifier
@@ -95,39 +99,6 @@ class SurveyDashboard extends React.Component {
       return component;
     }
 };
-
-/*
-const surveyCard = (surveys) => (
-  <Grommet theme={theme} full>
-    <Box alignSelf="center" pad="medium">
-      <Heading level={2} size="large" alignSelf="center">
-        Surveys
-      </Heading>
-      <Divider/>
-      <Grid gap="medium" rows="small" columns={{count: 'fit', size: 'small'}}>
-          {surveys.map((survey) =>
-            <Card
-              key={survey.title}
-              onClick={(survey) => props.history.push('/questions')}
-            >
-                <CardBody pad="small">
-                  <Identifier
-                    pad="small"
-                    title={survey.title}
-                    subTitle={survey.description}
-                    size="small"
-                    align="start"
-                  />
-                </CardBody>
-
-                <CardFooter pad={{horizontal: 'medium', vertical: 'small'}}/>
-            </Card>
-          )}
-      </Grid>
-    </Box>
-  </Grommet>
-)
-*/
 
 const Identifier = ({ children, title, subTitle, size, ...rest }) => (
     <Box gap="small" align="center" direction="row" pad="medium" {...rest}>
