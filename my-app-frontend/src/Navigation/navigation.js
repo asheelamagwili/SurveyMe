@@ -11,6 +11,44 @@ function mapStateToProps(state) {
     };
 }
 
+let min_nav_component;
+let nav_component;
+
+window.addEventListener('storage', () => {
+    // When local storage changes, dump the list to
+    // the console.
+    if(localStorage.getItem('login_state') == 'true') {
+        min_nav_component = [
+            { label: 'Dashboard', onClick: () => { this.toDashboard() }},
+            { label: 'Profile', onClick: () => {} },
+            { label: 'Logout', onClick: () => {this.handleLogout()} },
+        ];
+
+        nav_component = (
+            <Nav direction="row">
+                <Anchor href="/surveys" label="Dashboard" />
+                <Anchor href="/profile" label="Profile" />
+                <Anchor href="/home" label="Logout" onClick={this.handleLogout()}/>
+            </Nav>
+        )
+    }
+    else {
+        min_nav_component = [
+            { label: 'Home', onClick: () => {} },
+            { label: 'Register', onClick: () => {} },
+            { label: 'Login', onClick: () => {this.handleLogin()} },
+        ]
+
+        nav_component = (
+            <Nav direction="row">
+                <Anchor href="/" label="Home" />
+                <Anchor href="/register" label="Sign Up" />
+                <Anchor to="/login" label="Login"/>
+            </Nav>
+        )
+    }  
+});
+  
 
 //const Navigation = () => {
 class Navigation extends React.Component {
@@ -20,7 +58,9 @@ class Navigation extends React.Component {
 
         this.toDashboard = this.toDashboard.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
     }
+
 
     toDashboard() {
         this.props.history.push({pathname: '/surveys'});
@@ -30,9 +70,12 @@ class Navigation extends React.Component {
         localStorage.setItem('login_state', "false");
     }
 
+    handleLogin() {
+        this.props.history.push({pathname: '/login'});
+    }
+
     render() {
-        let min_nav_component;
-        let nav_component;
+        
         if(localStorage.getItem('login_state') == 'true') {
             min_nav_component = [
                 { label: 'Dashboard', onClick: () => { this.toDashboard() }},
@@ -44,7 +87,7 @@ class Navigation extends React.Component {
                 <Nav direction="row">
                     <Anchor href="/surveys" label="Dashboard" />
                     <Anchor href="/profile" label="Profile" />
-                    <Anchor href="/login" label="Logout" onClick={this.handleLogout()}/>
+                    <Anchor href="/home" label="Logout" onClick={this.handleLogout()}/>
                 </Nav>
             )
         }
@@ -52,14 +95,14 @@ class Navigation extends React.Component {
             min_nav_component = [
                 { label: 'Home', onClick: () => {} },
                 { label: 'Register', onClick: () => {} },
-                { label: 'Login', onClick: () => {} },
+                { label: 'Login', onClick: () => {this.handleLogin()} },
             ]
 
             nav_component = (
                 <Nav direction="row">
                     <Anchor href="/" label="Home" />
                     <Anchor href="/register" label="Sign Up" />
-                    <Anchor href="/login" label="Login" />
+                    <Anchor href="/login" label="Login"/>
                 </Nav>
             )
         }

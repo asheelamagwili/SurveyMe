@@ -9,7 +9,8 @@ const surveySchema = new mongoose.Schema({
     isOpen: Boolean,
     authorID: String,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
+    survey_pass: String
 })
 
 module.exports = mongoose.model('Survey', surveySchema)

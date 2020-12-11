@@ -31,6 +31,8 @@ class SurveyDashboard extends React.Component {
 
     constructor(props) {
       super(props);
+
+      this.toCreate = this.toCreate.bind(this);
     }
 
     componentDidMount() {
@@ -49,6 +51,12 @@ class SurveyDashboard extends React.Component {
       });
     }
 
+    toCreate() {
+      this.props.history.push({
+        pathname: '/survey/create'
+      });
+    }
+
     render () {
       let component;
       let surveys = [];
@@ -64,36 +72,37 @@ class SurveyDashboard extends React.Component {
       else {
         //component = surveyCard(this.props.surveyData)
         component = (
-          <Grommet theme={theme} full>
-            <Box alignSelf="center" pad="medium">
-              <Heading level={2} size="large" alignSelf="center">
-                Surveys
-              </Heading>
-              <Divider/>
-              <Grid gap="medium" rows="small" columns={{count: 'fit', size: 'small'}}>
-                  {surveys.map((survey) =>
-                    <Card
-                      key={survey.title}
-                      onClick={() => this.sendAndRedirect(survey)}
-                    >
-                        <CardBody pad="small">
-                          <Identifier
-                            pad="small"
-                            title={survey.title}
-                            subTitle={survey.description}
-                            size="small"
-                            align="start"
-                          />
-                        </CardBody>
-        
-                        <CardFooter pad={{horizontal: 'medium', vertical: 'small'}}/>
-                    </Card>
-                  )}
-              </Grid>
-            </Box>
-          </Grommet>
-        )
-      }
+            <Grommet theme={theme} full>
+              <Box alignSelf="center" pad="medium">
+                <Button margin="medium" label="Create" onClick={this.toCreate}></Button>
+                <Heading level={2} size="large" alignSelf="center">
+                  Surveys
+                </Heading>
+                <Divider/>
+                <Grid gap="medium" rows="small" columns={{count: 'fit', size: 'small'}}>
+                    {surveys.map((survey) =>
+                      <Card
+                        key={survey.title}
+                        onClick={() => this.sendAndRedirect(survey)}
+                      >
+                          <CardBody pad="small">
+                            <Identifier
+                              pad="small"
+                              title={survey.title}
+                              subTitle={survey.description}
+                              size="small"
+                              align="start"
+                            />
+                          </CardBody>
+          
+                          <CardFooter pad={{horizontal: 'medium', vertical: 'small'}}/>
+                      </Card>
+                    )}
+                </Grid>
+              </Box>
+            </Grommet>
+          )
+        }
 
       //console.log('Render lifecycle');
       return component;

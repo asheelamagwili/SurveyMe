@@ -45,6 +45,7 @@ class Create extends React.Component {
 
         this.handleTitle = this.handleTitle.bind(this);
         this.handleDescription = this.handleDescription.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
         this.handleStart = this.handleStart.bind(this);
         this.handleEnd = this.handleEnd.bind(this);
     }
@@ -57,7 +58,8 @@ class Create extends React.Component {
             //authorID: this.props.userData._id,
             authorID: 'meeep',
             startDate: this.state.startDate,
-            endDate: this.state.endDate
+            endDate: this.state.endDate,
+            password: this.state.password
         });
         this.props.history.push('/surveys/create/questions');
     }
@@ -69,6 +71,10 @@ class Create extends React.Component {
 
     handleDescription(event) {
         this.setState({description: event.target.value});
+    }
+
+    handlePassword(event) {
+        this.setState({password: event.target.value});
     }
 
     handleStart(event) {
@@ -98,6 +104,10 @@ class Create extends React.Component {
 
                             <FormField label="Description" name="description" required>
                                 <TextInput name="description" type="text" value={this.state.description} onChange={this.handleDescription}/>
+                            </FormField>
+
+                            <FormField label="Password" name="password" required>
+                                <TextInput name="password" type="text" value={this.state.password} onChange={this.handlePassword}/>
                             </FormField>
 
                             <FormField name="startDate" label="Start Date" required>
