@@ -4,7 +4,7 @@ const questionSchema = new mongoose.Schema({
     survey_id: String,
     survey_title: String,
     question: String,
-    answer: [{
+    answers: [{
         user_id: String,
         user_answer: String
     }]

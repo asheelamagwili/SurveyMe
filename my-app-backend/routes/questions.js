@@ -1,4 +1,5 @@
 const express = require('express')
+const { findByIdAndUpdate } = require('../models/question')
 const router = express.Router()
 const Questions = require('../models/question')
 
@@ -60,6 +61,40 @@ router.put('/', async (req, res) => {
                 console.log('Error: ' + error);
             else
                 console.log('Deleted: ' + result);
+        }
+    );
+})
+
+// Add answers to a question
+router.put('/answer', async (req, res) => {
+    // Takes in an object that contains:
+    //      user_id (id of the person who answered the question), 
+    //      user_answer (user's answer),
+    //      question_id (id of the question to edit)
+    console.log('-----> PUT: Adding an answer to a question');
+    const new_answer = {
+        user_id: req.body.user_id,
+        user_answer: req.body.user_answer,
+        question_id: req.body.question_id
+    };
+    console.log(new_answer);
+
+    // Find and update the question with the new answer
+    Questions.updateOne(
+        {_id: new_answer.question_id},
+        // Add the answer object to the array
+        {$push: {
+            "answers": {
+                user_id: new_answer.user_id, 
+                user_answer: new_answer.user_answer
+            }
+        }},
+        // Return the error or the success result
+        function(error, result) {
+            if(error)
+                res.send(error);
+            else
+                res.json(result);
         }
     );
 })

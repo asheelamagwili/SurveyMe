@@ -9,6 +9,7 @@ import { getPreview } from './actions/getPreview-action';
 import { openSurvey } from './actions/openSurvey-action';
 import { closeSurvey } from './actions/closeSurvey-action';
 import { deleteQuestion } from './actions/deleteQuestion-action';
+import { postAnswer } from './actions/postAnswer-action';
 
 window.store = store;
 window.postRegister = postRegister;
@@ -21,3 +22,4 @@ window.getPreview = getPreview;
 window.openSurvey = openSurvey;
 window.closeSurvey = closeSurvey;
 window.deleteQuestion = deleteQuestion;
+window.postAnswer = postAnswer;
