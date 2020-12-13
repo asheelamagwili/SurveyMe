@@ -26,11 +26,15 @@ class TakeSurvey extends React.Component {
         this.state = {
             questions: [],
             title: '',
-            answer: ''
+            answer: '',
+            user_question: '',
+            question_id: '',
+            answers: []
         }
 
         this.toDashboard = this.toDashboard.bind(this);
         this.sendAndRedirect = this.sendAndRedirect.bind(this);
+        this.handleAnswer = this.handleAnswer.bind(this);
     }
 
     componentDidMount() {
@@ -39,6 +43,11 @@ class TakeSurvey extends React.Component {
         this.setState({
             questions: [],
             title: cur_survey.title,
+            answers: [{
+                user_id: '',
+                user_answer: '',
+                question_id: ''
+            }]
         });
     }
 
@@ -53,20 +62,30 @@ class TakeSurvey extends React.Component {
     }
 
     // Handle form fields
-    handleAnswer(i, event) {
-        this.state.questions[i] = event.target.value;
-        this.setState({answer: event.target.value});
-        this.sendAndRedirect();
+    handleAnswer = (i, q_id) => event => {
+        const new_answers = this.state.answers.map((answer, idx) => {
+            if(i !== idx)
+                return answer;
+            else {
+                return {
+                    ...answer,
+                    user_id: '5fb4ebf03f4d3de6d5f4628c',
+                    user_answer: event.target.value,
+                    question_id: q_id
+                };
+            }
+        })
+        console.log('New Answers: ');
+        console.log(new_answers);
+        this.setState({answers: new_answers});
+        //this.state.answers.push(new_answers);
     }
 
     // Send the redux actions then redirect to the successful submit page
     sendAndRedirect() {
-        console.log('Questions: ' + this.state.questions[0].user_answer);
-        this.props.postAnswer({
-            user_id: '5fb4ebf03f4d3de6d5f4628c', // Hard coding a user for now
-            user_answer: "Blue", // Hard coding answer for - form is having an issue
-            question_id: "5fd483a5ad3e6409609c1525" // Hard code question id for now - while testing backend
-        })
+        console.log('Sending form to redux: ');
+        console.log(this.state.answers);
+        this.props.postAnswer(this.state.answers);
     }
 
     render() {
@@ -77,7 +96,7 @@ class TakeSurvey extends React.Component {
             const res_data = this.props.surveyData;
             for(let i in res_data) {
                 this.state.questions.push(res_data[i]);
-                console.log("Question: " + i + res_data[i]);
+                console.log("Question #" + i + res_data[i].question);
             }
 
             component = (
@@ -90,11 +109,9 @@ class TakeSurvey extends React.Component {
                     <Box fill justify="evenly" pad="xlarge">
                         <Form>
                             {this.state.questions.map((cur_question, i) => 
-                                <div key={i}>
-                                    <FormField name="answer" label={cur_question.question} required>
-                                        <TextInput name="answer" type="text" onChange={this.handleAnswer.bind(this, i)} />
-                                    </FormField>
-                                </div>
+                                <FormField name="answer" label={cur_question.question} required>
+                                    <TextInput name="answer" type="text" onChange={() => this.handleAnswer(i, cur_question._id)} />
+                                </FormField>
                             )}
                         </Form>
                         <Box pad="medium">

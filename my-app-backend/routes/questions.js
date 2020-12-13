@@ -67,36 +67,39 @@ router.put('/', async (req, res) => {
 
 // Add answers to a question
 router.put('/answer', async (req, res) => {
-    // Takes in an object that contains:
+    // Takes in an array of objects that contains:
     //      user_id (id of the person who answered the question), 
     //      user_answer (user's answer),
     //      question_id (id of the question to edit)
     console.log('-----> PUT: Adding an answer to a question');
-    const new_answer = {
-        user_id: req.body.user_id,
-        user_answer: req.body.user_answer,
-        question_id: req.body.question_id
-    };
-    console.log(new_answer);
+    const new_answers = req.body;
 
-    // Find and update the question with the new answer
-    Questions.updateOne(
-        {_id: new_answer.question_id},
-        // Add the answer object to the array
-        {$push: {
-            "answers": {
-                user_id: new_answer.user_id, 
-                user_answer: new_answer.user_answer
+    console.log(new_answers);
+
+    let update_result;
+    for(var i = 0;i < new_answers.length;i++) {
+        // Find and update the question with the new answer
+        Questions.updateOne(
+            {_id: new_answers[i].question_id},
+            // Add the answer object to the array
+            {$push: {
+                "answers": {
+                    user_id: new_answers[i].user_id, 
+                    user_answer: new_answers[i].user_answer
+                }
+            }},
+            // Return the error or the success result
+            function(error, result) {
+                if(error)
+                    res.send(error);
+                else {
+                    update_result = result;
+                }
             }
-        }},
-        // Return the error or the success result
-        function(error, result) {
-            if(error)
-                res.send(error);
-            else
-                res.json(result);
-        }
-    );
+        );
+    }
+
+    res.json(update_result);
 })
 
 module.exports = router
