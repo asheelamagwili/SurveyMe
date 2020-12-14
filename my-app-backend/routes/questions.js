@@ -72,32 +72,36 @@ router.put('/answer', async (req, res) => {
     //      user_answer (user's answer),
     //      question_id (id of the question to edit)
     console.log('-----> PUT: Adding an answer to a question');
-    const new_answers = req.body;
+    const new_answer = {
+        user_id: req.body.user_id,
+        user_answer: req.body.user_answer,
+        question_id: req.body.question_id
+    };
 
-    console.log(new_answers);
+    console.log(new_answer);
 
     let update_result;
-    for(var i = 0;i < new_answers.length;i++) {
+    //for(var i = 0;i < new_answer.length;i++) {
         // Find and update the question with the new answer
         Questions.updateOne(
-            {_id: new_answers[i].question_id},
+            {_id: new_answer.question_id},
             // Add the answer object to the array
             {$push: {
                 "answers": {
-                    user_id: new_answers[i].user_id, 
-                    user_answer: new_answers[i].user_answer
+                    user_id: new_answer.user_id, 
+                    user_answer: new_answer.user_answer
                 }
             }},
             // Return the error or the success result
             function(error, result) {
                 if(error)
-                    res.send(error);
+                    res.json(error);
                 else {
                     update_result = result;
                 }
             }
         );
-    }
+    //}
 
     res.json(update_result);
 })
