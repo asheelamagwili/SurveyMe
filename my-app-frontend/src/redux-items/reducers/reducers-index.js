@@ -11,8 +11,11 @@ import { CREATE_SURVEY_ERROR } from '../constants/types';
 import { DISPLAY_PREVIEW_SUCCESS } from '../constants/types';
 import { DISPLAY_PREVIEW_ERROR } from '../constants/types';
 import { OPEN_SURVEY_ERROR, OPEN_SURVEY_SUCCESS } from '../constants/types';
+import { POST_ANSWER_SUCCESS, POST_ANSWER_ERROR } from '../constants/types';
 
 const initialState = {
+    postAnswerSuccess : false,
+    postAnswerError : false,
     openSurveySuccess : false,
     openSurveyError : false,
     displayPreviewSuccess : false,
@@ -150,6 +153,25 @@ function rootReducer(state = initialState, action) {
             ...state,
             openSurveySuccess : false,
             openSurveyError : true
+        }
+    }
+
+    // Answer
+    if(action.type === POST_ANSWER_SUCCESS) {
+        return {
+            ...state,
+            postAnswerSuccess : true,
+            postAnswerError : false,
+            answerData : action.payload
+        }
+    }
+
+    if(action.type === POST_ANSWER_ERROR) {
+        return {
+            ...state,
+            postAnswerSuccess : false,
+            postAnswerError : true,
+            answerData : action.payload
         }
     }
 

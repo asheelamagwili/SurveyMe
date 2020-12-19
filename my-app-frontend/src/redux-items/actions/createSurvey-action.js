@@ -7,6 +7,7 @@ export function postNewSurvey(surveyInfo){
     const survey = {
         title: surveyInfo.title,
         description: surveyInfo.description,
+        survey_pass: surveyInfo.password,
         isOpen: false,
         authorID: surveyInfo.authorID,
         startDate: surveyInfo.startDate,
@@ -28,6 +29,7 @@ export function postNewSurvey(surveyInfo){
                 body: JSON.stringify({
                     title: survey.title,
                     description: survey.description,
+                    survey_pass: survey.survey_pass,
                     isOpen: false,
                     authorID: survey.authorID,
                     startDate: survey.startDate,

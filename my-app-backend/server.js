@@ -13,6 +13,7 @@ const userRouter = require('./routes/user')
 const registerRouter = require('./routes/register')
 const loginRouter = require('./routes/login')
 const questionRouter = require('./routes/questions')
+const takeRouter = require('./routes/take')
 
 dotenv.config();
 
@@ -56,6 +57,7 @@ app.use('/surveys', surveysRouter)
 app.use('/user', userRouter)
 app.use('/register', registerRouter)
 app.use('/login', loginRouter)
+app.use('/take', takeRouter)
 
 // For development default to port 3000
 app.listen(process.env.PORT)

@@ -76,7 +76,7 @@ class Login extends React.Component{
                             <Button label="Login" type="submit"/>
                             <Divider/>
                             <Text textAlign="center">Don't have an account?</Text>
-                            <Button label="Sign Up" onClick={() => this.props.history.push('/register')} path="/login"/>
+                            <Button label="Sign Up" onClick={() => this.props.history.push('/register')}/>
                         </Grid>
                     </Form>
                 </Box>

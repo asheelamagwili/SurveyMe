@@ -33,6 +33,7 @@ router.post('/new', async (req,res) => {
     const survey = new Survey({
         title: req.body.title,
         description: req.body.description,
+        survey_pass: req.body.survey_pass,
         isOpen: req.body.isOpen,
         authorID: req.body.authorID,
         startDate: req.body.startDate,
